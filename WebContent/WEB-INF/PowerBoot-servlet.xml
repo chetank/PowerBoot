@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean name="/hikeform.htm"  class="com.powerboot.HikeFormController" >
+	    <property name="formView" value="hikeform"></property>
+	    <property name="successView" value="displayname"></property>
+	    <property name="validator">
+	      <bean class="com.powerboot.validator.HelloWorldValidator" />
+	    </property>
+	    <property name="commandName">
+	      <value>insertHikeDetails</value>
+	    </property>
+	    <property name="commandClass" value="com.powerboot.model.HikeDetailsCommand" />
+	</bean>
+	
+	<bean name="/hikeslist.htm"  class="com.powerboot.HikesListController" >
+    </bean>
+	   
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>        
+    </bean>
+</beans>
