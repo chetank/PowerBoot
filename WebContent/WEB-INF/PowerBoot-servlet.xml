@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
-	<bean name="/hikeform.htm"  class="com.powerboot.HikeFormController" >
+	<bean name="/hikeform.htm"  class="com.powerboot.controller.HikeFormController" >
 	    <property name="formView" value="hikeform"></property>
 	    <property name="successView" value="displayname"></property>
 	    <property name="validator">
@@ -13,15 +13,23 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	    <property name="commandName">
 	      <value>insertHikeDetails</value>
 	    </property>
-	    <property name="commandClass" value="com.powerboot.model.HikeDetailsCommand" />
+	    <property name="commandClass" value="com.powerboot.command.HikeDetailsCommand" />
 	</bean>
 	
-	<bean name="/hikeslist.htm"  class="com.powerboot.HikesListController" >
-    </bean>
-	   
+	<bean name="/hikelist.htm"  class="com.powerboot.controller.HikeListController" ></bean>
+	<!-- 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>        
     </bean>
+    <bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" />
+     -->
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>        
+    </bean>
+    <bean name="jsonView" class="org.springframework.web.servlet.view.json.JsonView"/>
+    
 </beans>

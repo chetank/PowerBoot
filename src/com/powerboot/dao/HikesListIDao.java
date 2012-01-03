@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.powerboot.model.HikesListModel;
+import com.powerboot.model.HikeListModel;
 
 public interface HikesListIDao {
 	
@@ -14,7 +14,7 @@ public interface HikesListIDao {
 
 //	List<HikesListModel> select(String name, String lat, String lon);
 
-	List<HikesListModel> selectAll();
+	List<HikeListModel> selectAll();
 
 //	void deleteAll();
 

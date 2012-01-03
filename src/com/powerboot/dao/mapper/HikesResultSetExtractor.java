@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import com.powerboot.model.HikesListModel;
+import com.powerboot.model.HikeListModel;
 
 public class HikesResultSetExtractor implements ResultSetExtractor {
 	@Override
 	public Object extractData(ResultSet rs) throws SQLException {
-		HikesListModel hikes = new HikesListModel();
+		HikeListModel hikes = new HikeListModel();
 		hikes.setName(rs.getString(1));
 		hikes.setLatitude(rs.getString(2));
 		hikes.setLongitude(rs.getString(3));

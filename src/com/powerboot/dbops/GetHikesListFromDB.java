@@ -6,7 +6,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.powerboot.dao.HikesListDao;
 import com.powerboot.dao.HikesListIDao;
-import com.powerboot.model.HikesListModel;
+import com.powerboot.model.HikeListModel;
 
 public class GetHikesListFromDB {
 
@@ -23,8 +23,8 @@ public class GetHikesListFromDB {
 		dao.setDataSource(dataSource);
 		
 		System.out.println("Now select and list all persons");
-		List<HikesListModel> list = dao.selectAll();
-		for (HikesListModel myHike : list) {
+		List<HikeListModel> list = dao.selectAll();
+		for (HikeListModel myHike : list) {
 			System.out.print(myHike.getName() + "\n");
 		}
 	}

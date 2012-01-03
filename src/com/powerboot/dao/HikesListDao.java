@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.powerboot.dao.mapper.HikesRowMapper;
-import com.powerboot.model.HikesListModel;
+import com.powerboot.model.HikeListModel;
 
 public class HikesListDao implements HikesListIDao {
 	private DataSource dataSource;
@@ -22,7 +22,7 @@ public class HikesListDao implements HikesListIDao {
 				new Object[] { firstName, lastName });
 	}*/
 	
-	public List<HikesListModel> selectAll() {
+	public List<HikeListModel> selectAll() {
 		JdbcTemplate select = new JdbcTemplate(dataSource);
 		return select.query("select name, geolatitude, geolongitude from hikelist",
 				new HikesRowMapper());
