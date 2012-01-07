@@ -29,6 +29,8 @@ public class HikeListController extends SimpleFormController {
         dataSource.setUsername("root");
         dataSource.setPassword("test123");
         dao.setDataSource(dataSource);
+        
+        //test a change
 
         List<HikeListModel> hikeList = dao.selectAll();
         
