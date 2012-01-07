@@ -1,1 +1,1 @@
-<div align="center">&copy; vaannila.com</div>
+<div align="center">&copy; hikemaadi.com</div>

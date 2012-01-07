@@ -5,6 +5,7 @@
 	http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+    <!-- Tiles Configuration -->
     <bean id="tilesConfigurer"
         class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
         <property name="definitions">
@@ -14,6 +15,7 @@
         </property>
     </bean>
     
+    <!-- URL Mapping -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
@@ -22,8 +24,10 @@
         </property>
     </bean>
 
+	<!-- Controllers -->
 	<bean id="hikeListController" class="com.powerboot.controller.HikeListController"></bean>
 
+	<!-- View Resolvers -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
@@ -33,30 +37,6 @@
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
         <property name="order" value="1"/>
-    </bean>
-
-	<!--
-		Tiles Configuration <bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-		p:definitions="/WEB-INF/tiles-defs.xml" />
-	-->
-	<!-- View Resolvers -->
-	<!--
-		<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
-		p:basename="views" /> <bean name="jsonView"
-		class="org.springframework.web.servlet.view.json.JsonView" />
-	-->
-	<!--
-		Controllers <bean name="/hikeform.htm"
-		class="com.powerboot.controller.HikeFormController"> <property
-		name="formView" value="hikeform"></property> <property
-		name="successView" value="displayname"></property> <property
-		name="validator"> <bean
-		class="com.powerboot.validator.HelloWorldValidator" /> </property>
-		<property name="commandName"> <value>insertHikeDetails</value>
-		</property> <property name="commandClass"
-		value="com.powerboot.command.HikeDetailsCommand" /> </bean>
-	-->
+    </bean>	
 
 </beans>
