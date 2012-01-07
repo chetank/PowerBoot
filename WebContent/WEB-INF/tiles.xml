@@ -19,6 +19,11 @@
         <put-attribute name="body" value="/WEB-INF/jsp/hikelist.jsp" />
     </definition>
     
+    <definition name="hikeform" extends="baseLayout">
+        <put-attribute name="title" value="Welcome" />
+        <put-attribute name="body" value="/WEB-INF/jsp/hikeform.jsp" />
+    </definition>
+    
 	<definition name="welcome" extends="baseLayout">
 		<put-attribute name="title" value="Welcome" />
 		<put-attribute name="body" value="/WEB-INF/jsp/welcome.jsp" />
