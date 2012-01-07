@@ -223,7 +223,7 @@ setTimeout('cm_load()', 500);
 //]]>
 
 </script>
-<h1>List of Hikes</h1>
+<h1>Hike List</h1>
     <c:forEach items="${hikeList}" var="hike">
         ${hike.name}
         <br />
