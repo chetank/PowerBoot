@@ -34,7 +34,7 @@ public class HikeListController extends SimpleFormController {
 
         List<HikeListModel> hikeList = dao.selectAll();
         
-        ModelAndView modelAndView = new ModelAndView("hikelist");
+        ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("hikeList", hikeList);
         return modelAndView;
     }

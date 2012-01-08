@@ -14,9 +14,10 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
 	</definition>
 
-	<definition name="hikelist" extends="baseLayout">
+	<definition name="home" extends="baseLayout">
         <put-attribute name="title" value="Welcome" />
-        <put-attribute name="body" value="/WEB-INF/jsp/hikelist.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/jsp/hikesMenuList.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/hikesOnMap.jsp" />
     </definition>
     
     <definition name="hikeform" extends="baseLayout">

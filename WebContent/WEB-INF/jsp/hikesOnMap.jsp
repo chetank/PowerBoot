@@ -8,8 +8,7 @@
 <title>HikeMaadi.com Welcomes You!</title>
 </head>
 <body>
-<div style="width:900px; font-family:Arial,
-sans-serif; font-size:11px; border:1px solid black">
+<div>
   <table id="cm_mapTABLE"> <tbody> <tr id="cm_mapTR">
 
     <td> <div id="cm_map" style="width:750px; height:550px"></div> </td>
@@ -56,7 +55,7 @@ function cm_load() {
     cm_map.addControl(new GLargeMapControl());
     cm_map.addControl(new GMapTypeControl());
     cm_map.setCenter(new GLatLng( 43.907787,-79.359741), 2);
-    cm_getJSON();
+    cm_loadMapJSON();
   } else {
     alert("Sorry, the Google Maps API is not compatible with this browser");
   }
@@ -110,19 +109,14 @@ function cm_loadMapJSON(json) {
 
   var bounds = new GLatLngBounds();
 
-  if(json.feed.entry[0]["gsx$" + param_rankColumn]) {
-    usingRank = true;
-    json.feed.entry.sort(cm_sortRows);
-  }
-
   <c:forEach items="${hikeList}" var="hike" varStatus="i">
-	  var lng = parseFloat(${hike.latitude});
-	  var lat = parseFloat(${hike.longitude});
-	  var point = new GLatLng(lat,lng);
-	  var html = "<div style='font-size:12px'>";
-	  html += "<strong>" + '${hike.name}' + "</strong>";
-	  var label = '${hike.name}';
-	  var rank = 50;
+      var lng = parseFloat(${hike.latitude});
+      var lat = parseFloat(${hike.longitude});
+      var point = new GLatLng(lat,lng);
+      var html = "<div style='font-size:12px'>";
+      html += "<strong>" + '${hike.name}' + "</strong>";
+      var label = '${hike.name}';
+      var rank = 50;
 
       // create the marker
       var marker = cm_createMarker(point,label,html,rank);
@@ -200,33 +194,10 @@ function cm_createMarker(point, title, html, rank) {
   return marker;
 }
 
-/**
- * Creates a script tag in the page that loads in the
- * JSON feed for the specified key/ID.
- * Once loaded, it calls cm_loadMapJSON.
- */
-function cm_getJSON() {
-
-  // Retrieve the JSON feed.
-  var script = document.createElement('script');
-
-  script.setAttribute('src', 'http://spreadsheets.google.com/feeds/list'
-                         + '/' + param_ssKey + '/' + param_wsId + '/public/values' +
-                        '?alt=json-in-script&callback=cm_loadMapJSON');
-  script.setAttribute('id', 'jsonScript');
-  script.setAttribute('type', 'text/javascript');
-  document.documentElement.firstChild.appendChild(script);
-}
-
 setTimeout('cm_load()', 500);
 
 //]]>
 
 </script>
-<h1>Hike List</h1>
-    <c:forEach items="${hikeList}" var="hike">
-        ${hike.name}
-        <br />
-    </c:forEach>
 </body>
 </html>

@@ -19,8 +19,8 @@
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="/hikelist.htm">hikeListController</prop>
-                <prop key="/hikeform.htm">hikeFormController</prop>
+                <prop key="/home.htm">hikeListController</prop>
+                <prop key="/newHikeForm">hikeFormController</prop>
             </props>
         </property>
     </bean>
