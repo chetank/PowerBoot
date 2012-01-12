@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
+<link type="text/css" href="hikemaadistyles.css" rel="stylesheet" />
 <style>
 body {
     color: #555555;
@@ -25,9 +26,16 @@ body {
 }
 
 #header {
-    display:block;
+    position: relative;
     height: 126px;
 }
+
+#headerContent {
+    position: absolute; 
+    bottom: 0;
+    align: center;
+}
+
 </style>
 </head>
 <body>

@@ -1,1 +1,1 @@
-<div align="center" style="font-weight:bold">HikeMaadi.com</div>
+<div id="headerContent">HikeMaadi.com</div>

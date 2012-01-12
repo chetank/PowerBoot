@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ include file="header.jsp" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ include file="header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,196 +8,90 @@
 <title>HikeMaadi.com Welcomes You!</title>
 </head>
 <body>
-<div>
-  <table id="cm_mapTABLE"> <tbody> <tr id="cm_mapTR">
 
-    <td> <div id="cm_map" style="width:750px; height:550px"></div> </td>
-  </tr> </tbody></table>
-</div>
-<script src="http://maps.google.com/maps?file=api&v=2&key="
-  type="text/javascript"></script>
-
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
+</script>
+<style type="text/css">
+#map {
+	height: 550px;
+	width: 750px;
+}
+</style>
+<div id="map"></div>
+<link type="text/css" href="jquery-ui-1.8rc3.custom.css" rel="stylesheet" />
+  <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="jquery-ui-1.8rc3.custom.min.js"></script>
 <script type="text/javascript">
-//<![CDATA[
-var cm_map;
-var cm_mapMarkers = [];
-var cm_mapHTMLS = [];
 
-// Create a base icon for all of our markers that specifies the
-// shadow, icon dimensions, etc.
-var cm_baseIcon = new GIcon();
-cm_baseIcon.shadow = "http://www.google.com/mapfiles/shadow50.png";
-cm_baseIcon.iconSize = new GSize(20, 34);
-cm_baseIcon.shadowSize = new GSize(37, 34);
-cm_baseIcon.iconAnchor = new GPoint(9, 34);
-cm_baseIcon.infoWindowAnchor = new GPoint(9, 2);
-cm_baseIcon.infoShadowAnchor = new GPoint(18, 25);
+var contentString = [
+                     '<div id="tabs">',
+                     '<ul>',
+                       '<li><a href="#tab-1"><span>One</span></a></li>',
+                       '<li><a href="#tab-2"><span>Two</span></a></li>',
+                       '<li><a href="#tab-3"><span>Three</span></a></li>',
+                     '</ul>',
+                     '<div id="tab-1">',
+                       '<p>Tab 1</p>',
+                     '</div>',
+                     '<div id="tab-2">',
+                      '<p>Tab 2</p>',
+                     '</div>',
+                     '<div id="tab-3">',
+                       '<p>Tab 3</p>',
+                     '</div>',
+                     '</div>'
+                   ].join('');
 
-// Change these parameters to customize map
-var param_wsId = "od6";
-var param_ssKey = "0AnCRAiSCU99RdDlQb3RlMVpiMG1zeHhEcW0xdFBXWUE";
-var param_useSidebar = true;
-var param_titleColumn = "name";
-var param_descriptionColumn = "description";
-var param_latColumn = "geolongitude";
-var param_lngColumn = "geolatitude";
-var param_rankColumn = "";
-var param_iconType = "green";
-var param_iconOverType = "orange";
 
-/**
- * Loads map and calls function to load in worksheet data.
- */
-function cm_load() {
-  if (GBrowserIsCompatible()) {
-    // create the map
-    cm_map = new GMap2(document.getElementById("cm_map"));
-    cm_map.addControl(new GLargeMapControl());
-    cm_map.addControl(new GMapTypeControl());
-    cm_map.setCenter(new GLatLng( 43.907787,-79.359741), 2);
-    cm_loadMapJSON();
-  } else {
-    alert("Sorry, the Google Maps API is not compatible with this browser");
-  }
-}
 
-/**
- * Function called when marker on the map is clicked.
- * Opens an info window (bubble) above the marker.
- * @param {Number} markerNum Number of marker in global array
- */
-function cm_markerClicked(markerNum) {
-  cm_mapMarkers[markerNum].openInfoWindowHtml(cm_mapHTMLS[markerNum]);
-}
+    var bounds = new google.maps.LatLngBounds();
 
-/**
- * Function that sorts 2 worksheet rows from JSON feed
- * based on their rank column. Only called if column is defined.
- * @param {rowA} Object Represents row in JSON feed
- * @param {rowB} Object Represents row in JSON feed
- * @return {Number} Difference between row values
- */
-function cm_sortRows(rowA, rowB) {
-  var rowAValue = parseFloat(rowA["gsx$" + param_rankColumn].$t);
-  var rowBValue = parseFloat(rowB["gsx$" + param_rankColumn].$t);
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(0,0),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
-  return rowAValue - rowBValue;
-}
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
 
-/**
- * Called when JSON is loaded. Creates sidebar if param_sideBar is true.
- * Sorts rows if param_rankColumn is valid column. Iterates through worksheet rows,
- * creating marker and sidebar entries for each row.
- * @param {JSON} json Worksheet feed
- */
-function cm_loadMapJSON(json) {
-  var usingRank = false;
+    google.maps.event.addListener(infowindow, 'domready', function() {
+        $("#tabs").tabs();
+      });
 
-  if(param_useSidebar == true) {
-    var sidebarTD = document.createElement("td");
-    sidebarTD.setAttribute("width","150");
-    sidebarTD.setAttribute("valign","top");
-    var sidebarDIV = document.createElement("div");
-    sidebarDIV.id = "cm_sidebarDIV";
-    sidebarDIV.style.overflow = "auto";
-    sidebarDIV.style.height = "450px";
-    sidebarDIV.style.fontSize = "12px";
-    sidebarDIV.style.color = "#000000";
-    sidebarTD.appendChild(sidebarDIV);
-    document.getElementById("cm_mapTR").appendChild(sidebarTD);
-  }
+    var marker;
+    var markersArr = [];
+    <c:forEach items="${hikeList}" var="hike" varStatus="status">
+        i = ${status.count} - 1;
+        var lng = parseFloat(${hike.latitude});
+        var lat = parseFloat(${hike.longitude});
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: map,
+            title: '${hike.name}'
+        });
+        markersArr[i] = marker;
 
-  var bounds = new GLatLngBounds();
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+            infowindow.setContent('${hike.name}');
+            infowindow.open(map, marker);
+        }})(marker, i));
 
-  <c:forEach items="${hikeList}" var="hike" varStatus="i">
-      var lng = parseFloat(${hike.latitude});
-      var lat = parseFloat(${hike.longitude});
-      var point = new GLatLng(lat,lng);
-      var html = "<div style='font-size:12px'>";
-      html += "<strong>" + '${hike.name}' + "</strong>";
-      var label = '${hike.name}';
-      var rank = 50;
-
-      // create the marker
-      var marker = cm_createMarker(point,label,html,rank);
-      cm_map.addOverlay(marker);
-      cm_mapMarkers.push(marker);
-      cm_mapHTMLS.push(html);
+      var point = new google.maps.LatLng(lat,lng);
       bounds.extend(point);
 
-      if(param_useSidebar == true) {
-        var markerA = document.createElement("a");
-        markerA.setAttribute("href","javascript:cm_markerClicked('" + '${i}' +"')");
-        markerA.style.color = "#000000";
-        var sidebarText= "";
-        if(usingRank) {
-          sidebarText += rank + ") ";
-        }
-        sidebarText += label;
-        markerA.appendChild(document.createTextNode(sidebarText));
-        sidebarDIV.appendChild(markerA);
-        sidebarDIV.appendChild(document.createElement("br"));
-        sidebarDIV.appendChild(document.createElement("br"));
-      }
     </c:forEach>
 
-  cm_map.setZoom(cm_map.getBoundsZoomLevel(bounds));
-  cm_map.setCenter(bounds.getCenter());
-}
+    map.fitBounds(bounds);
 
-/**
- * Creates marker with ranked Icon or blank icon,
- * depending if rank is defined. Assigns onclick function.
- * @param {GLatLng} point Point to create marker at
- * @param {String} title Tooltip title to display for marker
- * @param {String} html HTML to display in InfoWindow
- * @param {Number} rank Number rank of marker, used in creating icon
- * @return {GMarker} Marker created
- */
-function cm_createMarker(point, title, html, rank) {
-  var markerOpts = {};
-  var nIcon = new GIcon(cm_baseIcon);
+    function itemClicked(markerNum) {
+        infowindow.setContent(markersArr[markerNum].getTitle());
+        infowindow.open(map,markersArr[markerNum]);     
+    }    
+  </script>
 
-  if(rank > 0 && rank < 100) {
-    nIcon.imageOut = "http://gmaps-samples.googlecode.com/svn/trunk/" +
-        "markers/" + param_iconType + "/marker" + rank + ".png";
-    nIcon.imageOver = "http://gmaps-samples.googlecode.com/svn/trunk/" +
-        "markers/" + param_iconOverType + "/marker" + rank + ".png";
-    nIcon.image = nIcon.imageOut;
-  } else {
-    nIcon.imageOut = "http://gmaps-samples.googlecode.com/svn/trunk/" +
-        "markers/" + param_iconType + "/blank.png";
-    nIcon.imageOver = "http://gmaps-samples.googlecode.com/svn/trunk/" +
-        "markers/" + param_iconOverType + "/blank.png";
-    nIcon.image = nIcon.imageOut;
-  }
-
-  markerOpts.icon = nIcon;
-  markerOpts.title = title;
-  var marker = new GMarker(point, markerOpts);
-
-  GEvent.addListener(marker, "click", function() {
-    marker.openInfoWindowHtml(html);
-  });
-  GEvent.addListener(marker, "mouseover", function() {
-    marker.setImage(marker.getIcon().imageOver);
-  });
-  GEvent.addListener(marker, "mouseout", function() {
-    marker.setImage(marker.getIcon().imageOut);
-  });
-  GEvent.addListener(marker, "infowindowopen", function() {
-    marker.setImage(marker.getIcon().imageOver);
-  });
-  GEvent.addListener(marker, "infowindowclose", function() {
-    marker.setImage(marker.getIcon().imageOut);
-  });
-  return marker;
-}
-
-setTimeout('cm_load()', 500);
-
-//]]>
-
-</script>
 </body>
 </html>
