@@ -42,6 +42,9 @@
     var marker;
     var markersArr = [];
     var infoBubbleArr = [];
+    var infoBubble = new InfoBubble({
+        maxWidth: 300
+      });
     
     <c:forEach items="${hikeList}" var="hike" varStatus="status">
         i = ${status.count} - 1;
@@ -49,9 +52,7 @@
         var lat = parseFloat(${hike.longitude});
         var point = new google.maps.LatLng(lat,lng);
 
-        var infoBubble = new InfoBubble({
-            maxWidth: 300
-          });
+        
         
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lng),
@@ -59,11 +60,13 @@
             title: '${hike.name}'
         });
 
-        markersArr[i] = marker;        
+        markersArr[i] = marker;
 
-        var infoBubble = new InfoBubble({
+        infoBubble = new InfoBubble({
             maxWidth: 300
-          });
+          });        
+
+        
         
         infoBubble.addTab('Quick Info', '${hike.name}');
         infoBubble.addTab('Trail Map', '${hike.name}');
@@ -71,7 +74,12 @@
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infoBubbleArr[i].open(map, marker);
+            	infoBubbleArr[i].open(map, marker);
+            	for(var j = 0; j< infoBubbleArr.length; j++) {
+            		   if(j!=i) {
+            			   infoBubbleArr[j].close(map,markersArr[j]);
+            		   }
+            	}
         }})(marker, i));
       
       bounds.extend(point);

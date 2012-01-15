@@ -7,7 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
-<link type="text/css" href="hikemaadistyles.css" rel="stylesheet" />
+<link type="text/css" href="<c:url value="/resources/css/style.css" />" rel="stylesheet" />
+<img src="<c:url value="/resources/images/image.jpg" />" />
 <style>
 body {
     color: #555555;
@@ -40,7 +41,6 @@ body {
     bottom: 0;
     align: center;
 }
-
 </style>
 </head>
 <body>
