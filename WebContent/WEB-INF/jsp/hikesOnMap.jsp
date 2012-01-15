@@ -12,39 +12,19 @@
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
 </script>
-<style type="text/css">
-#map {
-	height: 550px;
-	width: 750px;
-}
-</style>
-<div id="map"></div>
-<link type="text/css" href="jquery-ui-1.8rc3.custom.css" rel="stylesheet" />
-  <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-  <script type="text/javascript" src="jquery-ui-1.8rc3.custom.min.js"></script>
 <script type="text/javascript">
+      var script = '<script type="text/javascript" src="http://google-maps-' +
+          'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
+      if (document.location.search.indexOf('compiled') !== -1) {
+        script += '-compiled';
+      }
+      script += '.js"><' + '/script>';
+      document.write(script);
+    </script>
 
-var contentString = [
-                     '<div id="tabs">',
-                     '<ul>',
-                       '<li><a href="#tab-1"><span>One</span></a></li>',
-                       '<li><a href="#tab-2"><span>Two</span></a></li>',
-                       '<li><a href="#tab-3"><span>Three</span></a></li>',
-                     '</ul>',
-                     '<div id="tab-1">',
-                       '<p>Tab 1</p>',
-                     '</div>',
-                     '<div id="tab-2">',
-                      '<p>Tab 2</p>',
-                     '</div>',
-                     '<div id="tab-3">',
-                       '<p>Tab 3</p>',
-                     '</div>',
-                     '</div>'
-                   ].join('');
+<div id="map"></div>
 
-
-
+<script>
     var bounds = new google.maps.LatLngBounds();
 
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -53,45 +33,56 @@ var contentString = [
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+    var contentString = "hello world";
+    
     var infowindow = new google.maps.InfoWindow({
         content: contentString
     });
 
-    google.maps.event.addListener(infowindow, 'domready', function() {
-        $("#tabs").tabs();
-      });
-
     var marker;
     var markersArr = [];
+    var infoBubbleArr = [];
+    
     <c:forEach items="${hikeList}" var="hike" varStatus="status">
         i = ${status.count} - 1;
         var lng = parseFloat(${hike.latitude});
         var lat = parseFloat(${hike.longitude});
+        var point = new google.maps.LatLng(lat,lng);
+
+        var infoBubble = new InfoBubble({
+            maxWidth: 300
+          });
+        
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lng),
             map: map,
             title: '${hike.name}'
         });
-        markersArr[i] = marker;
+
+        markersArr[i] = marker;        
+
+        var infoBubble = new InfoBubble({
+            maxWidth: 300
+          });
+        
+        infoBubble.addTab('Quick Info', '${hike.name}');
+        infoBubble.addTab('Trail Map', '${hike.name}');
+        infoBubbleArr[i] = infoBubble;
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-            infowindow.setContent('${hike.name}');
-            infowindow.open(map, marker);
+                infoBubbleArr[i].open(map, marker);
         }})(marker, i));
-
-      var point = new google.maps.LatLng(lat,lng);
+      
       bounds.extend(point);
 
     </c:forEach>
 
     map.fitBounds(bounds);
 
-    function itemClicked(markerNum) {
-        infowindow.setContent(markersArr[markerNum].getTitle());
-        infowindow.open(map,markersArr[markerNum]);     
+    function itemClicked(markerNum) {     
+        infoBubbleArr[markerNum].open(map, markersArr[markerNum]);
     }    
   </script>
-
 </body>
 </html>

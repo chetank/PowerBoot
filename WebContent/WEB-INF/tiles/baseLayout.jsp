@@ -20,6 +20,11 @@ body {
     vertical-align: baseline;
 }
 
+#map {
+    height: 550px;
+    width: 750px;
+}
+
 #menu {
     float: left;
     line-height: 2em;
