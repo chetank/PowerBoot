@@ -15,6 +15,7 @@ public class HikesResultSetExtractor implements ResultSetExtractor {
 		hikes.setName(rs.getString(1));
 		hikes.setLatitude(rs.getString(2));
 		hikes.setLongitude(rs.getString(3));
+		hikes.setTrailPoints(rs.getString(4));
 		return hikes;
 	}
 

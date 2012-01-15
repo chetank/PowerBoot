@@ -10,7 +10,8 @@
 <body>
 <div id="sideBar">
     <c:forEach items="${hikeList}" var="hike" varStatus="status">
-    <a href="javascript:itemClicked(${status.count-1})">${hike.name}</a>
+        <a href="javascript:itemClicked(${status.count-1})">${hike.name}</a>
+        <br/><span class="distance" id="distance_${status.count-1}" ></span>
         <br />
     </c:forEach>
 </div>

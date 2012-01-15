@@ -5,7 +5,14 @@ public class HikeListModel {
 	private String name;
 	private String latitude;
 	private String longitude;
+	private String trailPoints;
 	
+	public String getTrailPoints() {
+		return trailPoints;
+	}
+	public void setTrailPoints(String trailPoints) {
+		this.trailPoints = trailPoints;
+	}
 	public String getName() {
 		return name;
 	}

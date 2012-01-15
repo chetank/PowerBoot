@@ -21,7 +21,7 @@ body {
     vertical-align: baseline;
 }
 
-#map {
+#map,#trailMap {
     height: 550px;
     width: 750px;
 }
@@ -29,6 +29,12 @@ body {
 #menu {
     float: left;
     line-height: 2em;
+    padding-right: 10px;
+    text-align: right;
+}
+
+#address {
+    padding-bottom: 10px;
 }
 
 #header {
@@ -41,6 +47,12 @@ body {
     bottom: 0;
     align: center;
 }
+
+.distance {
+    font-size: 10px;
+    line-height: 1;
+}
+
 </style>
 </head>
 <body>
