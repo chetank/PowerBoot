@@ -88,8 +88,13 @@
 
     map.fitBounds(bounds);
 
-    function itemClicked(markerNum) {     
-        infoBubbleArr[markerNum].open(map, markersArr[markerNum]);
+    function itemClicked(i) {     
+        infoBubbleArr[i].open(map, markersArr[i]);
+        for(var j = 0; j< infoBubbleArr.length; j++) {
+            if(j!=i) {
+                infoBubbleArr[j].close(map,markersArr[j]);
+            }
+        }
     }    
   </script>
 </body>
