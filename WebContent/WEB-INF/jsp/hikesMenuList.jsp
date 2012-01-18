@@ -10,8 +10,8 @@
 <body>
 <div id="sideBar">
     <c:forEach items="${hikeList}" var="hike" varStatus="status">
-        <a href="javascript:itemClicked(${status.count-1})">${hike.name}</a>
         <span class="distance" id="distance_${status.count-1}" ></span>
+        <a href="javascript:itemClicked(${status.count-1})" onMouseOver="displayRouteToDestination(${status.count-1})">${hike.name}</a>
         <br />
     </c:forEach>
 </div>

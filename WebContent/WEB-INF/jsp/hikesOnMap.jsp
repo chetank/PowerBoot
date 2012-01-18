@@ -17,14 +17,14 @@
 <!-- Import Google Earth API -->
 <script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck"></script>
 
+<!-- Import Google Places API -->
+ <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
+
 <!-- Import Google-Utility libraries -->
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
-<div id="address"><input type="text" name="address" size="50"
-    value="Enter your address here" />
-<button>Go</button>
-</div>
+<div id="address"><input id="searchPlaceTextField" type="text" size="100"></div>
 <div id="map"></div>
 <div id="trailMap"></div>
 
@@ -32,10 +32,15 @@
     google.load('earth', '1');
     google.maps.event.addDomListener(window, 'load', init);
     
+
+    /*
+    ** Declare global variables
+    */
     var googleEarth;
     var bounds = new google.maps.LatLngBounds();
     var map;
     var marker;
+    var originMarker;
     var markersArr = [];
     var infoBubbleArr = [];
     var infoBubble = new InfoBubble({
@@ -45,6 +50,9 @@
     var infowindow = new google.maps.InfoWindow({
         content: ""
     }); 
+    var input = document.getElementById('searchPlaceTextField');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    var directionsDisplay = new google.maps.DirectionsRenderer();
     
     function init() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -54,6 +62,14 @@
           });
         googleEarth = new GoogleEarth(map);
         google.maps.event.addListenerOnce(map, 'tilesloaded', addOverlays);
+
+        autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        google.maps.event.addListener(autocomplete, 'place_changed', computeDistances);
+
+        originMarker = new google.maps.Marker({
+            map: map
+        });
     }
 
     /*
@@ -136,21 +152,26 @@
     /**
      * Compute distances between hike locations and user-entered location 
      **/
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
      
     function computeDistances() {
-        var origin1 = new google.maps.LatLng(13.017066,77.56704);
-        var destinationA = new google.maps.LatLng(markersArr[2].getPosition().lat(), markersArr[2].getPosition().lng());
-        var destinationB = new google.maps.LatLng(markersArr[3].getPosition().lat(), markersArr[3].getPosition().lng());
+        var place = autocomplete.getPlace();
+        var origin = place.geometry.location;
+        var destinations = [];
+        <c:forEach items="${hikeList}" var="hike" varStatus="status">
+            i = ${status.count} - 1;
+            var lng = parseFloat(${hike.latitude});
+            var lat = parseFloat(${hike.longitude});
+            destinations[i] = new google.maps.LatLng(lat,lng);
+        </c:forEach>
+
+        originMarker.setPosition(origin);
+        originMarker.setIcon(place.icon);
     
         var service = new google.maps.DistanceMatrixService();
         service.getDistanceMatrix(
           {
-            origins: [origin1],
-            destinations: [destinationA, destinationB],
+            origins: [origin],
+            destinations: destinations,
             travelMode: google.maps.TravelMode.DRIVING,
             avoidHighways: false,
             avoidTolls: false
@@ -162,14 +183,6 @@
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
                       
-            marker = new google.maps.Marker({
-                position: origin1,
-                map: map,
-                title: 'Origin',
-                animation: google.maps.Animation.DROP,
-                icon: 'http://www.google.com/mapfiles/arrow.png'
-            });
-            
             for (var i = 0; i < origins.length; i++) {
                 var results = response.rows[i].elements;
                 for (var j = 0; j < results.length; j++) {
@@ -177,62 +190,29 @@
                     var distance = element.distance.text;
                     var duration = element.duration.text;
                     document.getElementById("distance_"+j).innerHTML = "(" + distance + ", " + duration + ")";
-                    var from = origins[i];
-                    var to = destinations[j];
-                    calcRoute(from, to);
                 }
             }            
         }
     }
 
-    function calcRoute(start, end) {
-        var request = {
-                 origin:start,
-                destination:end,
-                travelMode: google.maps.TravelMode.DRIVING
-                };
-        directionsService.route(request, function(result, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(result);
-                }
-            });
-    }
-
-    /*function addOverlays() {
-        // Add some markers
-        for (var i = 0; i < 5; i++) {
-          var marker = new google.maps.Marker({
-            position: getRandomLatLng(),
-            draggable : true,
-            title : 'this is a marker',
-            icon : 'http://code.google.com/apis/maps/documentation/javascript/examples/images/beachflag.png'
-          });
-
-        infowindow = new google.maps.InfoWindow({
-          content: 'This is the infowindow for a marker'
-        });
-        addInfowindow(marker, infowindow);
-        marker.setMap(map);
+    function displayRouteToDestination(i) {
+        if ((autocomplete.getPlace() != undefined )) {
+            var directionsService = new google.maps.DirectionsService();
+            var request = {
+                    origin:autocomplete.getPlace().geometry.location,
+                    destination:markersArr[i].getPosition(),
+                    travelMode: google.maps.TravelMode.DRIVING
+                    };
+    
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                    }
+                });
+    
+            directionsDisplay.setMap(map);
         }
-      }
-
-    function getRandomLatLng() {
-        var bounds = map.getBounds();
-        var southWest = bounds.getSouthWest();
-        var northEast = bounds.getNorthEast();
-        var lngSpan = northEast.lng() - southWest.lng();
-        var latSpan = northEast.lat() - southWest.lat();
-        var latLng = new google.maps.LatLng(
-            southWest.lat() + latSpan * Math.random(),
-            southWest.lng() + lngSpan * Math.random());
-        return latLng;
-      }
-
-    function addInfowindow(marker, infowindow) {
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map, marker);
-        });
-      }*/
-  --></script>
+    }
+    </script>
 </body>
 </html>

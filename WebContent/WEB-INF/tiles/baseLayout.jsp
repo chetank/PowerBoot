@@ -23,7 +23,7 @@ body {
 
 #map,#trailMap,#map3d {
     height: 700px;
-    width: 1000px;
+    width: 900px;
 }
 
 #menu {
@@ -31,6 +31,7 @@ body {
     line-height: 2em;
     padding-right: 10px;
     text-align: right;
+    width: 200px;
 }
 
 #address {
@@ -58,7 +59,7 @@ body {
 <body>
     <div id="header"><tiles:insertAttribute name="header" /></div>
     <div id="menu"><tiles:insertAttribute name="menu" /></div>
-    <div id="body"><tiles:insertAttribute name="body" /></div>
+    <div id="main"><tiles:insertAttribute name="main" /></div>
     <div id="footer"><tiles:insertAttribute name="footer" /></div>
 </body>
 </html>
