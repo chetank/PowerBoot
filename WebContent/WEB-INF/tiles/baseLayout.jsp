@@ -16,14 +16,14 @@ body {
     font-size: 13px;
     font-weight: normal;
     line-height: 1em;
-    width: 990px;
+    width: 1200px;
     margin: 0 auto;
     vertical-align: baseline;
 }
 
-#map,#trailMap {
-    height: 550px;
-    width: 750px;
+#map,#trailMap,#map3d {
+    height: 700px;
+    width: 1000px;
 }
 
 #menu {
