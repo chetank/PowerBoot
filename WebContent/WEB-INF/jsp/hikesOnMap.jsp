@@ -151,6 +151,16 @@
         });
         
         hikePath.setMap(map);
+        menuItemSelectedStyle(i);
+    }
+
+    function menuItemSelectedStyle(i) {
+        var menuItems = document.getElementsByName("menuItem");
+        for(k = 0; k < menuItems.length; k++) {
+            var menuItem = menuItems[k];
+            menuItem.setAttribute("class","unselectedMenuItem");
+        }
+        document.getElementById("menuItem_"+i).setAttribute("class","selectedMenuItem");
     }
 
     /**
@@ -215,6 +225,7 @@
                 });
     
             directionsDisplay.setMap(map);
+            menuItemSelectedStyle(i);
         }
     }
     </script>

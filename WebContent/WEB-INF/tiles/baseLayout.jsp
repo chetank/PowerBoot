@@ -23,6 +23,7 @@ body {
 
 body a {
     text-decoration: none;
+    color: green;
 }
 
 #main {
@@ -70,7 +71,7 @@ ol {
 }
 
 li {
-    border: solid 1px #CACACA;
+    border: solid 0.5px #CCCCCC;
     padding-left: 3px;
 }
 
@@ -82,6 +83,13 @@ h3 {
     clear: both;
 }
 
+.selectedMenuItem {
+    font-weight: bold;
+}
+
+.unselectedMenuItem {
+    font-weight: normal;
+}
 </style>
 </head>
 <body>
