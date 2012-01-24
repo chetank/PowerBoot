@@ -24,7 +24,7 @@ public class HikesListDao implements HikesListIDao {
 	
 	public List<HikeListModel> selectAll() {
 		JdbcTemplate select = new JdbcTemplate(dataSource);
-		return select.query("select name, geolatitude, geolongitude, trailPoints from hikelist",
+		return select.query("select * from hikelist",
 				new HikesRowMapper());
 	}
 }

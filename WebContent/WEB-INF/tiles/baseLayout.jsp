@@ -16,22 +16,32 @@ body {
     font-size: 13px;
     font-weight: normal;
     line-height: 1em;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
     vertical-align: baseline;
 }
 
-#map,#trailMap,#map3d {
-    height: 700px;
-    width: 900px;
+body a {
+    text-decoration: none;
+}
+
+#main {
+    width: 78%;
+    float: right;
 }
 
 #menu {
     float: left;
     line-height: 2em;
     padding-right: 10px;
-    text-align: right;
-    width: 200px;
+    margin-left: -25px;
+    text-align: left;
+    width: 22%;
+}
+
+#map,#map3d {
+    height: 700px;
+    width: 90%;
 }
 
 #address {
@@ -44,14 +54,32 @@ body {
 }
 
 #headerContent {
-    position: absolute; 
     bottom: 0;
-    align: center;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 27pt;
 }
 
 .distance {
     font-size: 10px;
     line-height: 1;
+}
+
+ol {
+    list-style: none outside none;
+}
+
+li {
+    border: solid 1px #CACACA;
+    padding-left: 3px;
+}
+
+h3 {
+    line-height: 0em;
+} 
+
+#footer {
+    clear: both;
 }
 
 </style>

@@ -26,7 +26,6 @@
 
 <div id="address"><input id="searchPlaceTextField" type="text" size="100"></div>
 <div id="map"></div>
-<div id="trailMap"></div>
 
 <script type="text/javascript"><!--
     google.load('earth', '1');
@@ -94,8 +93,13 @@
                 maxWidth: 300
               });        
             
+            
             infoBubble.addTab('Quick Info', '${hike.name}');
-            infoBubble.addTab('Trail Map', '${hike.name}');
+            var quickInfo = 'Distance: ' + '${hike.totalDistance}' + '<br/>';
+            quickInfo += 'Duration: ' + '${hike.duration}' + '<br/>';
+            quickInfo += 'Elevation Gain: ' + '${hike.elevationGain}' + '<br/>';
+            infoBubble.setContent(quickInfo);
+            
             infoBubbleArr[i] = infoBubble;
     
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
