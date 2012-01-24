@@ -1,0 +1,82 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    color: #555555;
+    font-family: 'Open Sans',helvetica,arial,verdana,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1em;
+    width: 100%;
+    margin: 0 auto;
+    vertical-align: baseline;
+}
+
+body a {
+    text-decoration: none;
+    color: green;
+}
+
+#main {
+    width: 78%;
+    float: right;
+}
+
+#menu {
+    float: left;
+    line-height: 2em;
+    padding-right: 10px;
+    margin-left: -25px;
+    text-align: left;
+    width: 22%;
+}
+
+#map,#map3d {
+    height: 700px;
+    width: 90%;
+}
+
+#address {
+    padding-bottom: 10px;
+}
+
+#header {
+    position: relative;
+    height: 126px;
+}
+
+#headerContent {
+    bottom: 0;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 27pt;
+}
+
+.distance {
+    font-size: 10px;
+    line-height: 1;
+}
+
+ol {
+    list-style: none outside none;
+}
+
+li {
+    border: solid 0.5px #CCCCCC;
+    padding-left: 3px;
+}
+
+h3 {
+    line-height: 0em;
+} 
+
+#footer {
+    clear: both;
+}
+
+.selectedMenuItem {
+    font-weight: bold;
+}
+
+.unselectedMenuItem {
+    font-weight: normal;
+}
