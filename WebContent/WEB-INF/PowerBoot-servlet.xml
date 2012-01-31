@@ -26,12 +26,14 @@
 			<props>
 				<prop key="/home.htm">hikeListController</prop>
 				<prop key="/newHikeForm">hikeFormController</prop>
+				<prop key="/getHikeDetails">hikeDetailsController</prop>
 			</props>
 		</property>
 	</bean>
 	
 	<!-- Controllers -->
 	<bean id="hikeListController" class="com.powerboot.controller.HikeListController"></bean>
+	<bean id="hikeDetailsController" class="com.powerboot.controller.HikeDetailsController"></bean>
 
 	<bean id="hikeFormController" class="com.powerboot.controller.HikeFormController">
 		<property name="formView" value="hikeform"></property>
@@ -59,4 +61,7 @@
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 		<property name="order" value="2" />
 	</bean>
+	
+
+    
 </beans>

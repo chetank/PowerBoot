@@ -16,7 +16,7 @@ public class HikesResultSetExtractor implements ResultSetExtractor {
         hikes.setLatitude(rs.getString(3));
         hikes.setLongitude(rs.getString(4));
         hikes.setTrailPoints(rs.getString(5));
-        hikes.setParkingPoint(rs.getString(6));
+        /*hikes.setParkingPoint(rs.getString(6));
         hikes.setElevationGain(rs.getInt(7));
         hikes.setSummitElevation(rs.getInt(8));
         hikes.setBaseElevation(rs.getInt(9));
@@ -25,7 +25,7 @@ public class HikesResultSetExtractor implements ResultSetExtractor {
         hikes.setParkingToTrailHeadDistance(rs.getInt(12));
         hikes.setBestTimeToVisit(rs.getString(13));
         hikes.setSpecialFeatures(rs.getString(14));
-        hikes.setTerrainFeatures(rs.getString(15));
+        hikes.setTerrainFeatures(rs.getString(15));*/
         
         return hikes;
     }
