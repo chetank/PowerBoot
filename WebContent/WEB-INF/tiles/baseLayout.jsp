@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <link type="text/css" href="<c:url value="/resc/css/style.css" />" rel="stylesheet" />
+<script type="text/javascript" src="<c:url value="/resc/js/jquery.js" />"></script>
 
 </head>
 <body>
