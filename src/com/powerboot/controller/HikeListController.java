@@ -10,19 +10,19 @@ import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.mvc.Controller;
 
 import com.powerboot.dao.HikesListDao;
 import com.powerboot.dao.HikesListIDao;
 import com.powerboot.model.HikeListModel;
 
-public class HikeListController extends SimpleFormController {
+public class HikeListController implements Controller {
 
     protected static Logger myLogger = Logger.getLogger(HikeListController.class.getName());
     ApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml");
     
-    public ModelAndView handleRequest(HttpServletRequest arg0,
-            HttpServletResponse arg1) throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
   
         HikesListIDao dao = (HikesListDao) context.getBean("hikesDAO");
         List<HikeListModel> hikeList = dao.selectAll();
