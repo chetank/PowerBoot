@@ -1,0 +1,1 @@
+<div id="address"><input id="searchPlaceTextField" type="text" size="75"></div>

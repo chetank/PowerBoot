@@ -6,10 +6,11 @@ body {
     font-size: 13px;
     font-weight: normal;
     line-height: 1em;
-    width: 100%;
+    width: 97%;
     margin: 0 auto;
     vertical-align: baseline;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 body a {
@@ -31,24 +32,36 @@ body a {
 }
 
 #map,#map3d {
-    height: 700px;
-    width: 99%;
+    height: 500px;
+    width: 100%;
 }
 
-#address {
-    padding-bottom: 10px;
+
+#facebookLogin {
+}
+
+#attribution {
+    float: right;	
+}
+
+#addressBar {
+    width: 70%;
+    float: left;
 }
 
 #header {
     position: relative;
-    height: 70px;
+    height: 50px;
+    padding-top: 25px;
 }
 
-#headerContent {
+#logo {
     bottom: 0;
     text-align: left;
-    padding-top: 25px;
-    font-size: 20pt;
+    vertical-align: bottom;
+    font-size: 13pt;
+    float: left;
+    padding-right: 10px;
 }
 
 .distance {

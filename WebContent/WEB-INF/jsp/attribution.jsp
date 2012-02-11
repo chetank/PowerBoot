@@ -1,0 +1,1 @@
+<div id="facebookLogin"><img src="resc/images/facebookLogin.png" width="30px" height="30px"/></div>

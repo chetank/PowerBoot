@@ -23,7 +23,6 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
-<div id="address"><input id="searchPlaceTextField" type="text" size="100"></div>
 <div id="map"></div>
 <div id="trailMap"></div>
 

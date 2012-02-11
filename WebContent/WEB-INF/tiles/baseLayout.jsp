@@ -12,7 +12,11 @@
 
 </head>
 <body>
-    <div id="header"><tiles:insertAttribute name="header" /></div>
+    <div id="header">
+        <div id="logo"><tiles:insertAttribute name="logo" /></div>
+        <div id="addressBar"><tiles:insertAttribute name="addressBar" /></div>
+        <div id="attribution"><tiles:insertAttribute name="attribution" /></div>
+    </div>
     <div id="menu"><tiles:insertAttribute name="menu" /></div>
     <div id="main"><tiles:insertAttribute name="main" /></div>
     <div id="footer"><tiles:insertAttribute name="footer" /></div>

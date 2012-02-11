@@ -8,7 +8,9 @@
 
 	<definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
 		<put-attribute name="title" value="Template" />
-		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+		<put-attribute name="logo" value="/WEB-INF/jsp/logo.jsp" />
+		<put-attribute name="addressBar" value="/WEB-INF/jsp/addressBar.jsp" />
+		<put-attribute name="attribution" value="/WEB-INF/jsp/attribution.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
 		<put-attribute name="main" value="/WEB-INF/jsp/welcome.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
