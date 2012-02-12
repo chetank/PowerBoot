@@ -8,7 +8,16 @@ public class HikeFeature {
 	private String name;;
 	private String marker;
 	private List<Coordinate> trail;
+	private String style;
 	
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
 	public String getName() {
 		return name;
 	}
