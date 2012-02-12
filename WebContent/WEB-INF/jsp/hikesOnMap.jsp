@@ -239,11 +239,13 @@ function callback(response, status) {
 }
 
 function displayRouteToDestination(i) {
+	var destinationCoordinates = $("#carParkPoint_" + i).text().split("#");
+	var destinationPoint = new google.maps.LatLng(destinationCoordinates[0], destinationCoordinates[1]);
     if ((autocomplete.getPlace() != undefined )) {
         var directionsService = new google.maps.DirectionsService();
         var request = {
                 origin:autocomplete.getPlace().geometry.location,
-                destination:markersArr[i].getPosition(),
+                destination:destinationPoint,
                 travelMode: google.maps.TravelMode.DRIVING
         };
 
