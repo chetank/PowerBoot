@@ -139,13 +139,11 @@ function itemClicked(i) {
     hikeName = hikeName.replace(/\s+/g,"");
     
     menuItemSelectedStyle(i);
-    doAjax(hikeName);
+    doAjax(hikeName,i);
 }
 
 // This method retrieves the hike details when user clicks on a hike
-function doAjax(hikeName) {
-	bounds = new google.maps.LatLngBounds();
-	
+function doAjax(hikeName,hikeId) {
     $.getJSON("hikeDetails.htm?hikeName="+hikeName,
         function(data){
           $.each(data.details, function(i,item){
@@ -161,6 +159,9 @@ function doAjax(hikeName) {
                          icon: item.style,
                          animation: google.maps.Animation.DROP
                      });
+                 if(featureName == "Car Parking") {
+                    $("#carParkPoint_" + hikeId).text(lat + "#" + lng);
+                 }
               } else if (item.trail.length > 1) { //feature is a trail
                   var trailPoints = [];
                   for (j = 0 ; j < item.trail.length; j++) {
