@@ -23,8 +23,13 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
-<div id="map"></div>
-<div id="trailMap"></div>
+    <div id="map"></div>
+	<div id="dataTable">
+	    <c:forEach items="${hikeList}" var="hike" varStatus="status">
+	        <c:out value="${hike.name}" /><br/>
+	    </c:forEach>
+	</div>
+
 
 <script type="text/javascript"><!--
 google.load('earth', '1');
@@ -140,6 +145,8 @@ function itemClicked(i) {
     
     menuItemSelectedStyle(i);
     doAjax(hikeName,i);
+    
+    $("#dataTable").html("<br>Hi How are you");
 }
 
 // This method retrieves the hike details when user clicks on a hike
