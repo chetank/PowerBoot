@@ -2,12 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ include file="header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>HikeMaadi.com Welcomes You!</title>
-</head>
-<body>
 <!-- Import Google Maps JS API V3 -->
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
@@ -23,15 +17,47 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
+<script>
+$(document).ready(function() 
+        { 
+            $("#dataTable").tablesorter(); 
+        } 
+    ); 
+</script>
     <div id="map"></div>
-	<div id="dataTable">
-	    <c:forEach items="${hikeList}" var="hike" varStatus="status">
-	        <c:out value="${hike.name}" /><br/>
-	    </c:forEach>
-	</div>
+	<div id="dataGrid">
+		<table id="dataTable" class="tablesorter">
+			<thead>
+				<tr id="dataTableHeader">
+					<th class="hikeName">Name</td>
+					<th class="hikeInfo">Elev. Gain (ft)</td>
+					<th class="hikeInfo">Summit (ft)</td>
+					<th class="hikeInfo">Duration (hrs)</td>
+					<th class="hikeInfo">Difficulty Level</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${hikeList}" var="hike" varStatus="status">
+					<tr id="hikeRow_${status.count-1}" class="unselectedHikeRow" name="hikeRow" onclick="itemClicked(${status.count-1});" 
+					                                                  onMouseOver="displayRouteToDestination(${status.count-1})">
+						<td><c:out value="${hike.name}" />
+						  <span id="distance_${status.count-1}"></span>
+						  <span id="carParkPoint_${status.count-1}" style="display:none;"></span>
+						</td>
+						<c:set var="elev" value="${status.count+1}"></c:set>
+						<td class="hikeInfo"><c:out value="${elev}"></c:out></td>
+						<td class="hikeInfo">2500</td>
+						<td class="hikeInfo">3</td>
+						<td class="hikeInfo">Easy</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>   
+    </div>
 
 
-<script type="text/javascript"><!--
+<script type="text/javascript">
+
 google.load('earth', '1');
 google.maps.event.addDomListener(window, 'load', init);
 
@@ -145,8 +171,6 @@ function itemClicked(i) {
     
     menuItemSelectedStyle(i);
     doAjax(hikeName,i);
-    
-    $("#dataTable").html("<br>Hi How are you");
 }
 
 // This method retrieves the hike details when user clicks on a hike
@@ -180,9 +204,9 @@ function doAjax(hikeName,hikeId) {
                   var trailColor = item.style;
                   var hikePath = new google.maps.Polyline({
                         path: trailPoints,
-                        strokeColor: trailColor,
-                        strokeOpacity: 1,
-                        strokeWeight: 3
+                        strokeColor: "red",
+                        strokeOpacity: 0.7,
+                        strokeWeight: 2
                     });
                     hikePath.setMap(map);
               }
@@ -191,12 +215,13 @@ function doAjax(hikeName,hikeId) {
 }
 
 function menuItemSelectedStyle(i) {
-    var menuItems = document.getElementsByName("menuItem");
-    for(k = 0; k < menuItems.length; k++) {
-        var menuItem = menuItems[k];
-        menuItem.setAttribute("class","unselectedMenuItem");
+    var hikeRows = document.getElementsByName("hikeRow");
+    for(k = 0; k < hikeRows.length; k++) {
+    	var hikeRow = hikeRows[k];
+    	hikeRow.setAttribute("class","unselectedHikeRow");
     }
-    document.getElementById("menuItem_"+i).setAttribute("class","selectedMenuItem");
+    var hikeRowId = "#hikeRow_" + i;
+    $(hikeRowId).attr("class","selectedHikeRow");
 }
 
 /**
@@ -267,6 +292,3 @@ function displayRouteToDestination(i) {
     }
 }
 </script>
-
-</body>
-</html>

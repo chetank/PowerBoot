@@ -23,7 +23,7 @@ body a {
     float: left;
 }
 
-#menu {
+#sidebar {
     float: right;
     line-height: 2em;
     text-align: left;
@@ -32,21 +32,22 @@ body a {
 }
 
 #map,#map3d {
-    height: 500px;
-    width: 75%;
-    position: absolute;
+    height: 475px;
+    width: 100%;
+    position: relative;
 }
 
-#dataTable {
+#dataGrid {
     position: relative;
     background-color/**/: #FFFFCC;
-    opacity: 0.7;
+    opacity: 0.9;
     filter: alpha(opacity=50);
-    width: 111%;
+    width: 99.7%;
     z-index: 99;
     height: 115px;
     overflow: auto;
-    top: 385px;
+    bottom: 115px;
+    border: 1px solid black;
 }
 
 #facebookLogin {
@@ -81,28 +82,58 @@ body a {
     line-height: 1;
 }
 
-ol {
-    list-style: none outside none;
-    margin-left: -30px;
-}
-
-li {
-    border: solid 0.5px #CCCCCC;
-    padding-left: 3px;
-}
-
-h3 {
-    line-height: 0em;
-} 
-
 #footer {
     clear: both;
 }
 
-.selectedMenuItem {
+.selectedHikeRow {
     font-weight: bold;
+    background-color: #F9D549;
 }
 
-.unselectedMenuItem {
+.unselectedHikeRow {
     font-weight: normal;
+}
+
+tr {
+	border: 1px solid black; 
+}
+
+#dataTable {
+	   font-size: 8pt;
+	   width: 100%;
+}
+
+#dataTable tbody {
+	color:green;
+}
+
+th {
+	background-color: #024F07;
+	color: white;
+	font-weight: normal;
+	background-repeat: no-repeat;
+}
+
+.hikeInfo {
+	width: 15%;
+	text-align: center;
+}
+
+#dataTableHeader .hikeName {
+	width: 40%;
+	padding: 2px;
+}
+
+.unselectedHikeRow:hover {
+    background-color: #F9D549;
+    cursor: pointer;
+}
+
+th.headerSortUp { 
+    background-image: url(../images/downArrow.gif);
+}
+
+th.headerSortDown { 
+    background-image: url(../images/upArrow.gif);
 }
