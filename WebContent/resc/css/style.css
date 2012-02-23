@@ -1,5 +1,8 @@
 @CHARSET "ISO-8859-1";
 
+html {
+	height: 100%;
+}
 body {
     color: #555555;
     font-family: 'Open Sans',helvetica,arial,verdana,sans-serif;
@@ -11,6 +14,7 @@ body {
     vertical-align: baseline;
     padding-left: 10px;
     padding-right: 10px;
+    height: 100%;
 }
 
 body a {
@@ -21,6 +25,7 @@ body a {
 #main {
     width: 70%;
     float: left;
+    height: 85%;
 }
 
 #sidebar {
@@ -32,7 +37,7 @@ body a {
 }
 
 #map,#map3d {
-    height: 475px;
+    height: 100%;
     width: 100%;
     position: relative;
 }

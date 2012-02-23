@@ -25,34 +25,34 @@ $(document).ready(function()
     ); 
 </script>
     <div id="map"></div>
-	<div id="dataGrid">
-		<table id="dataTable" class="tablesorter">
-			<thead>
-				<tr id="dataTableHeader">
-					<th class="hikeName">Name</td>
-					<th class="hikeInfo">Elev. Gain (ft)</td>
-					<th class="hikeInfo">Summit (ft)</td>
-					<th class="hikeInfo">Duration (hrs)</td>
-					<th class="hikeInfo">Difficulty Level</td>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${hikeList}" var="hike" varStatus="status">
-					<tr id="hikeRow_${status.count-1}" class="unselectedHikeRow" name="hikeRow" onclick="itemClicked(${status.count-1});" 
-					                                                  onMouseOver="displayRouteToDestination(${status.count-1})">
-						<td><c:out value="${hike.name}" />
-						  <span id="distance_${status.count-1}"></span>
-						  <span id="carParkPoint_${status.count-1}" style="display:none;"></span>
-						</td>
-						<c:set var="elev" value="${status.count+1}"></c:set>
-						<td class="hikeInfo"><c:out value="${elev}"></c:out></td>
-						<td class="hikeInfo">2500</td>
-						<td class="hikeInfo">3</td>
-						<td class="hikeInfo">Easy</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>   
+    <div id="dataGrid">
+        <table id="dataTable" class="tablesorter">
+            <thead>
+                <tr id="dataTableHeader">
+                    <th class="hikeName">Name</td>
+                    <th class="hikeInfo">Elev. Gain (ft)</td>
+                    <th class="hikeInfo">Summit (ft)</td>
+                    <th class="hikeInfo">Duration (hrs)</td>
+                    <th class="hikeInfo">Difficulty Level</td>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${hikeList}" var="hike" varStatus="status">
+                    <tr id="hikeRow_${status.count-1}" class="unselectedHikeRow" name="hikeRow" onclick="itemClicked(${status.count-1});" 
+                                                                      onMouseOver="displayRouteToDestination(${status.count-1})">
+                        <td><c:out value="${hike.name}" />
+                          <span id="distance_${status.count-1}"></span>
+                          <span id="carParkPoint_${status.count-1}" style="display:none;"></span>
+                        </td>
+                        <c:set var="elev" value="${status.count+1}"></c:set>
+                        <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
+                        <td class="hikeInfo">2500</td>
+                        <td class="hikeInfo">3</td>
+                        <td class="hikeInfo">Easy</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>   
     </div>
 
 
@@ -217,8 +217,8 @@ function doAjax(hikeName,hikeId) {
 function menuItemSelectedStyle(i) {
     var hikeRows = document.getElementsByName("hikeRow");
     for(k = 0; k < hikeRows.length; k++) {
-    	var hikeRow = hikeRows[k];
-    	hikeRow.setAttribute("class","unselectedHikeRow");
+        var hikeRow = hikeRows[k];
+        hikeRow.setAttribute("class","unselectedHikeRow");
     }
     var hikeRowId = "#hikeRow_" + i;
     $(hikeRowId).attr("class","selectedHikeRow");
@@ -271,8 +271,8 @@ function callback(response, status) {
 }
 
 function displayRouteToDestination(i) {
-	var destinationCoordinates = $("#carParkPoint_" + i).text().split("#");
-	var destinationPoint = new google.maps.LatLng(destinationCoordinates[0], destinationCoordinates[1]);
+    var destinationCoordinates = $("#carParkPoint_" + i).text().split("#");
+    var destinationPoint = new google.maps.LatLng(destinationCoordinates[0], destinationCoordinates[1]);
     if ((autocomplete.getPlace() != undefined )) {
         var directionsService = new google.maps.DirectionsService();
         var request = {

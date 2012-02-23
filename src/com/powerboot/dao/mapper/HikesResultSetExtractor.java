@@ -1,21 +1,15 @@
 package com.powerboot.dao.mapper;
 
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.springframework.jdbc.core.ResultSetExtractor;
-
 import com.powerboot.model.HikeListModel;
 
-public class HikesResultSetExtractor implements ResultSetExtractor {
-    @Override
-    public Object extractData(ResultSet rs) throws SQLException {
-        HikeListModel hikes = new HikeListModel();
-        hikes.setName(rs.getString(2));
-        hikes.setLatitude(rs.getString(3));
-        hikes.setLongitude(rs.getString(4));
-        hikes.setTrailPoints(rs.getString(5));
+public class HikesResultSetExtractor  {
+	
+    public HikeListModel extractData(String[] row)  {
+        HikeListModel hike = new HikeListModel();
+        hike.setName(row[1]);
+        hike.setLatitude(row[2]);
+        hike.setLongitude(row[3]);
         /*hikes.setParkingPoint(rs.getString(6));
         hikes.setElevationGain(rs.getInt(7));
         hikes.setSummitElevation(rs.getInt(8));
@@ -27,6 +21,6 @@ public class HikesResultSetExtractor implements ResultSetExtractor {
         hikes.setSpecialFeatures(rs.getString(14));
         hikes.setTerrainFeatures(rs.getString(15));*/
         
-        return hikes;
+        return hike;
     }
 }
