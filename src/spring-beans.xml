@@ -12,7 +12,7 @@
     <bean id="gFusionFacade" class="com.powerboot.facade.GFusionFacade" init-method="init">
         <property name="googleService" ref="googleService" />
         <property name="email" value="chetankumar.iisc@gmail.com" />
-        <property name="password" value="AMZNsde09" />
+        <property name="password" value="XXXX" />
     </bean>
 
     <bean id="googleService" destroy-method="close" 
