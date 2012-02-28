@@ -42,19 +42,6 @@ body a {
     position: relative;
 }
 
-#dataGrid {
-    position: relative;
-    background-color/**/: #FFFFCC;
-    opacity: 0.9;
-    filter: alpha(opacity=50);
-    width: 99.7%;
-    z-index: 99;
-    height: 115px;
-    overflow: auto;
-    bottom: 115px;
-    border: 1px solid black;
-}
-
 #facebookLogin {
 }
 
@@ -100,16 +87,28 @@ body a {
     font-weight: normal;
 }
 
+#dataGrid {
+    position: relative;
+    background-color/**/: #FFFFCC;
+    opacity: 0.9;
+    filter: alpha(opacity=50);
+    width: 99.7%;
+    z-index: 99;
+    height: 115px;
+    bottom: 115px;
+    border: 1px solid black;
+}
+
 tr {
 	border: 1px solid black; 
 }
 
-#dataTable {
-	   font-size: 8pt;
-	   width: 100%;
+.dataTable {
+    font-size: 8pt;
+    width: 100%;
 }
 
-#dataTable tbody {
+.dataTable tbody {
 	color:green;
 }
 
@@ -128,6 +127,10 @@ th {
 #dataTableHeader .hikeName {
 	width: 40%;
 	padding: 2px;
+}
+
+#tbody .hikeName {
+	text-align: left;
 }
 
 .unselectedHikeRow:hover {

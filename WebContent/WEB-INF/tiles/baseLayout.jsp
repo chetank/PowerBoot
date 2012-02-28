@@ -12,9 +12,6 @@
 
 <script type="text/javascript" src="<c:url value="/resc/js/jquery.js" />"></script>
 
-<!-- Import Table Sort Library -->
-<script type="text/javascript" src="<c:url value="/resc/js/jquery.tablesorter.min.js"/>"></script>
-
 </head>
 <body>
     <div id="header">

@@ -17,32 +17,47 @@
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
+<!-- Import Table Sorter API -->
+<script type="text/javascript" src="<c:url value="/resc/js/jquery.fixheadertable.min.js" />"></script>
+
+<!-- Import StyleSheets for Data Table -->
+<link rel="stylesheet" type="text/css" href="<c:url value="/resc/css/base.css" />"/>
+
 <script>
 $(document).ready(function() 
         { 
-            $("#dataTable").tablesorter(); 
+            $('.dataTable').fixheadertable({
+            	sortable : true,
+                height   : 100
+            }); 
         } 
-    ); 
+    );
 </script>
     <div id="map"></div>
     <div id="dataGrid">
-        <table id="dataTable" class="tablesorter">
+        <table class="dataTable">
             <thead>
                 <tr id="dataTableHeader">
-                    <th class="hikeName">Name</td>
-                    <th class="hikeInfo">Elev. Gain (ft)</td>
-                    <th class="hikeInfo">Summit (ft)</td>
-                    <th class="hikeInfo">Duration (hrs)</td>
-                    <th class="hikeInfo">Difficulty Level</td>
+                    <th class="hikeName" width="40%">Name
+                    </th>
+                    <th class="hikeInfo">Elev. Gain (ft)
+                    </th>
+                    <th class="hikeInfo">Summit (ft)
+                    </th>
+                    <th class="hikeInfo">Duration (hrs)
+                    </th>
+                    <th class="hikeInfo">Difficulty Level
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <c:forEach items="${hikeList}" var="hike" varStatus="status">
-                    <tr id="hikeRow_${status.count-1}" class="unselectedHikeRow" name="hikeRow" onclick="itemClicked(${status.count-1});" 
-                                                                      onMouseOver="displayRouteToDestination(${status.count-1})">
-                        <td><c:out value="${hike.name}" />
-                          <span id="distance_${status.count-1}"></span>
-                          <span id="carParkPoint_${status.count-1}" style="display:none;"></span>
+                    <tr id="hikeRow_${status.count-1}" class="unselectedHikeRow"
+                        name="hikeRow" onclick="itemClicked(${status.count-1});"
+                        onMouseOver="displayRouteToDestination(${status.count-1})">
+                        <td class="hikeName"><c:out value="${hike.name}" /> <span
+                            id="distance_${status.count-1}"></span> <span
+                            id="carParkPoint_${status.count-1}" style="display: none;"></span>
                         </td>
                         <c:set var="elev" value="${status.count+1}"></c:set>
                         <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
@@ -52,9 +67,8 @@ $(document).ready(function()
                     </tr>
                 </c:forEach>
             </tbody>
-        </table>   
+        </table>
     </div>
-
 
 <script type="text/javascript">
 
