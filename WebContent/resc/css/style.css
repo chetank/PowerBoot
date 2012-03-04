@@ -135,11 +135,6 @@ th {
     cursor: pointer;
 }
 
-tr:hover {
-    background-color: #F9D549;
-    cursor: pointer;
-}
-
 th.headerSortUp { 
     background-image: url(../images/downArrow.gif);
 }

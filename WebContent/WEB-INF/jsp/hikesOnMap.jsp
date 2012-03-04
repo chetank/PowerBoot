@@ -53,8 +53,7 @@ $(document).ready(function()
                         name="hikeRow" 
                         onclick="itemClicked(${status.count-1});"
                         onMouseOver="displayRouteToDestination(${status.count-1})">
-                        <td class="hikeName" width="40%"><c:out value="${hike.name}" /> 
-                            <span id="distance_${status.count-1}"></span>
+                        <td class="hikeName" width="40%"><c:out value="${hike.name}" />
                             <span id="carParkPoint_${status.count-1}" style="display: none;"></span>
                         </td>
                         <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
@@ -237,7 +236,9 @@ function doAjax(hikeName,hikeId) {
 
 function menuItemSelectedStyle(i) {
     $("tr[name=hikeRow]").removeClass("selectedHikeRow").addClass("unselectedHikeRow");
-    $("#hikeRow_" + i + "-" + trimHikeName(markersArr[i].getTitle())).removeClass("unselectedHikeRow").addClass("selectedHikeRow");
+    var hikeRowId = "hikeRow_" + i + "-" + trimHikeName(markersArr[i].getTitle());
+    console.log(hikeRowId);
+    $("#" + hikeRowId).removeClass("unselectedHikeRow").addClass("selectedHikeRow");
 }
 
 /**
@@ -270,6 +271,16 @@ function computeDistances() {
 }    
 
 function callback(response, status) {
+    //Insert new columns for distance and time to dataTable
+	$("#dataTable tr:first").append("<th class='hikeInfo header'>Distance</th>");
+    $("#dataTable tr:first").append("<th class='hikeInfo header'>Time</th>");
+    
+    //Alter column widths to create space for distance and time columns
+    $('th.hikeName').css("width", "18%");
+    $('td.hikeName').attr("width", "18%");
+    $('th.hikeInfo').css("width", "12%");
+    $('td.hikeInfo').css("width", "12%");
+    
     if (status == google.maps.DistanceMatrixStatus.OK) {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
@@ -278,12 +289,15 @@ function callback(response, status) {
             var results = response.rows[i].elements;
             for (var j = 0; j < results.length; j++) {
                 var element = results[j];
-                var distance = element.distance.text;
+                var distance = element.distance.text.split(" ")[0];
                 var duration = element.duration.text;
-                document.getElementById("distance_"+j).innerHTML = "(" + distance + ", " + duration + ")";
+                var rowIndex = j + 1;
+                $("#dataTable tr:eq(" + rowIndex + ")").append("<td class='hikeInfo'>" + distance + "</td>");
+                $("#dataTable tr:eq(" + rowIndex + ")").append("<td class='hikeInfo'>" + duration + "</td>");
             }
         }
     }
+    $("#dataTable").tablesorter();
 }
 
 function displayRouteToDestination(i) {
