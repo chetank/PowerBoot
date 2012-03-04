@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ include file="header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <!-- Import Google Maps JS API V3 -->
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
@@ -14,7 +15,7 @@
  <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
 
 <!-- Import Google-Utility libraries -->
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
+<script type="text/javascript" src="<c:url value="/resc/js/googleearth-compiled.js"/>"></script>
 
 <!-- Import Table Sorter API -->
 <script type="text/javascript" src="<c:url value="/resc/js/jquery.tablesorter.min.js"/>"></script>
@@ -109,14 +110,22 @@ function init() {
     googleEarth = new GoogleEarth(map);
     google.maps.event.addListenerOnce(map, 'tilesloaded', addOverlays);
     
-    //This event is fired when user clicks on any location on the map. We want to hide the infowindow if it is already open
-    google.maps.event.addListenerOnce(map, 'click', function() {
-        infowindow.close();
-    });
-
     autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
     google.maps.event.addListener(autocomplete, 'place_changed', computeDistances);
+    
+    //This event is fired when user clicks on any location on the map. We want to hide the infowindow if it is already open
+    google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+    });
+    
+    // Create the DIV to hold the control and call the ResetControl() constructor
+    // passing in this DIV.
+    var resetControlDiv = document.createElement('DIV');
+    var resetControl = new resetControlConstructor(resetControlDiv, map);
+
+    resetControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(resetControlDiv);
     
     originMarker = new google.maps.Marker({
         map: map
@@ -298,4 +307,49 @@ function displayRouteToDestination(i) {
         menuItemSelectedStyle(i);
     }
 }
+
+function resetMap() {
+    // Change mapType to Hybrid
+    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+    
+    // Reset map bounds
+    map.fitBounds(bounds); 
+    
+    //Close any open info windows
+    infowindow.close();
+}
+    
+
+function resetControlConstructor(controlDiv, map) {
+
+    // Set CSS styles for the DIV containing the control
+    // Setting padding to 5 px will offset the control
+    // from the edge of the map.
+    controlDiv.style.padding = '5px';
+    
+    // Set CSS for the control border.
+    var controlUI = document.createElement('DIV');
+    controlUI.style.backgroundColor = 'white';
+    controlUI.style.borderStyle = 'solid';
+    controlUI.style.borderWidth = '2px';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to reset the map';
+    controlDiv.appendChild(controlUI);
+    
+    // Set CSS for the control interior.
+    var controlText = document.createElement('DIV');
+    controlText.style.fontFamily = 'Arial,sans-serif';
+    controlText.style.fontSize = '12px';
+    controlText.style.paddingLeft = '4px';
+    controlText.style.paddingRight = '4px';
+    controlText.innerHTML = 'Reset';
+    controlUI.appendChild(controlText);
+    
+    // Setup the click event listeners: simply set the map to Chicago.
+    google.maps.event.addDomListener(controlUI, 'click', function() {
+     resetMap(); 
+    });
+}
+
 </script>
