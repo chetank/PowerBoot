@@ -97,6 +97,7 @@ body a {
     height: 115px;
     bottom: 115px;
     border: 1px solid black;
+    overflow: auto;
 }
 
 tr {
@@ -129,11 +130,12 @@ th {
 	padding: 2px;
 }
 
-#tbody .hikeName {
-	text-align: left;
+.unselectedHikeRow:hover {
+    background-color: #F9D549;
+    cursor: pointer;
 }
 
-.unselectedHikeRow:hover {
+tr:hover {
     background-color: #F9D549;
     cursor: pointer;
 }

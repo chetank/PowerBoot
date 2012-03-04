@@ -14,28 +14,21 @@
  <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
 
 <!-- Import Google-Utility libraries -->
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble-compiled.js"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/googleearth/src/googleearth-compiled.js"></script>
 
 <!-- Import Table Sorter API -->
-<script type="text/javascript" src="<c:url value="/resc/js/jquery.fixheadertable.min.js" />"></script>
-
-<!-- Import StyleSheets for Data Table -->
-<link rel="stylesheet" type="text/css" href="<c:url value="/resc/css/base.css" />"/>
+<script type="text/javascript" src="<c:url value="/resc/js/jquery.tablesorter.min.js"/>"></script>
 
 <script>
 $(document).ready(function() 
         { 
-            $('.dataTable').fixheadertable({
-            	sortable : true,
-                height   : 100
-            }); 
+            $("#dataTable").tablesorter();
         } 
     );
 </script>
     <div id="map"></div>
     <div id="dataGrid">
-        <table class="dataTable">
+        <table id="dataTable" class="dataTable">
             <thead>
                 <tr id="dataTableHeader">
                     <th class="hikeName" width="40%">Name
@@ -46,20 +39,23 @@ $(document).ready(function()
                     </th>
                     <th class="hikeInfo">Duration (hrs)
                     </th>
-                    <th class="hikeInfo">Difficulty Level
+                    <th class="hikeInfo">Level
                     </th>
                 </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody>
                 <c:forEach items="${hikeList}" var="hike" varStatus="status">
-                    <tr id="hikeRow_${status.count-1}" class="unselectedHikeRow"
-                        name="hikeRow" onclick="itemClicked(${status.count-1});"
+                    <c:set var="hikeNameTrimmed" value="${fn:replace(hike.name,' ','')}"></c:set>
+                    <c:set var="elev" value="${status.count+1}"></c:set>
+                    <tr id="hikeRow_${status.count-1}-${hikeNameTrimmed}" 
+                        class="unselectedHikeRow"
+                        name="hikeRow" 
+                        onclick="itemClicked(${status.count-1});"
                         onMouseOver="displayRouteToDestination(${status.count-1})">
-                        <td class="hikeName"><c:out value="${hike.name}" /> <span
-                            id="distance_${status.count-1}"></span> <span
-                            id="carParkPoint_${status.count-1}" style="display: none;"></span>
+                        <td class="hikeName" width="40%"><c:out value="${hike.name}" /> 
+                            <span id="distance_${status.count-1}"></span>
+                            <span id="carParkPoint_${status.count-1}" style="display: none;"></span>
                         </td>
-                        <c:set var="elev" value="${status.count+1}"></c:set>
                         <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
                         <td class="hikeInfo">2500</td>
                         <td class="hikeInfo">3</td>
@@ -84,10 +80,7 @@ var map;
 var marker;
 var originMarker;
 var markersArr = [];
-var infoBubbleArr = [];
-var infoBubble = new InfoBubble({
-maxWidth: 300
-});
+
 var point;
 var infowindow = new google.maps.InfoWindow({
 content: ""
@@ -115,6 +108,11 @@ function init() {
     });
     googleEarth = new GoogleEarth(map);
     google.maps.event.addListenerOnce(map, 'tilesloaded', addOverlays);
+    
+    //This event is fired when user clicks on any location on the map. We want to hide the infowindow if it is already open
+    google.maps.event.addListenerOnce(map, 'click', function() {
+        infowindow.close();
+    });
 
     autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
@@ -142,29 +140,23 @@ function addOverlays() {
             icon: icon
         });
         markersArr[i] = marker;
-    
-        infoBubble = new InfoBubble({
-            maxWidth: 300
-        });        
-    
-    
-        infoBubble.addTab('Quick Info', '${hike.name}');
-        var quickInfo = 'Distance: ' + '${hike.totalDistance}' + '<br/>';
-        quickInfo += 'Duration: ' + '${hike.duration}' + '<br/>';
-        quickInfo += 'Elevation Gain: ' + '${hike.elevationGain}' + '<br/>';
-        infoBubble.setContent(quickInfo);
-    
-        infoBubbleArr[i] = infoBubble;
-    
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoBubbleArr[i].open(map, marker);
-                for(var j = 0; j< infoBubbleArr.length; j++) {
-                    if(j!=i) {
-                        infoBubbleArr[j].close(map,markersArr[j]);
-                    }
+        
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(this.getTitle());
+            infowindow.open(map, this);
+            var hikeRowId = "";
+            for(var m = 0; m < markersArr.length; m++){
+                if(markersArr[m] == this) {
+                    hikeRowId = "hikeRow_" + m + "-" + trimHikeName(this.getTitle());
+                    break;
                 }
-            }})(marker, i));
+            }
+            if(hikeRowId != "") {
+                var element = document.getElementById(hikeRowId);
+                element.scrollIntoView(true);
+                menuItemSelectedStyle(m);
+            }
+        });
     
         bounds.extend(point);
     </c:forEach>
@@ -176,15 +168,21 @@ function addOverlays() {
  ** This method gets invoked when the user clicks on any hike from the menu list
  */
 function itemClicked(i) {
-    map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
-    map.setZoom(18);
-    map.setTilt(45);
+    //map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
+    //map.setZoom(18);
+    //map.setTilt(45);
     
     var hikeName = markersArr[i].getTitle();
-    hikeName = hikeName.replace(/\s+/g,"");
-    
     menuItemSelectedStyle(i);
-    doAjax(hikeName,i);
+    
+    //doAjax(hikeName,i);
+    var marker = markersArr[i];
+    infowindow.setContent(hikeName);
+    infowindow.open(map, marker);
+}
+
+function trimHikeName(hikeName) {
+    return hikeName.replace(/\s+/g,"");
 }
 
 // This method retrieves the hike details when user clicks on a hike
@@ -229,13 +227,8 @@ function doAjax(hikeName,hikeId) {
 }
 
 function menuItemSelectedStyle(i) {
-    var hikeRows = document.getElementsByName("hikeRow");
-    for(k = 0; k < hikeRows.length; k++) {
-        var hikeRow = hikeRows[k];
-        hikeRow.setAttribute("class","unselectedHikeRow");
-    }
-    var hikeRowId = "#hikeRow_" + i;
-    $(hikeRowId).attr("class","selectedHikeRow");
+    $("tr[name=hikeRow]").removeClass("selectedHikeRow").addClass("unselectedHikeRow");
+    $("#hikeRow_" + i + "-" + trimHikeName(markersArr[i].getTitle())).removeClass("unselectedHikeRow").addClass("selectedHikeRow");
 }
 
 /**
