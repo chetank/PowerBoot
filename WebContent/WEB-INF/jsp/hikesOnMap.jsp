@@ -132,8 +132,8 @@ function init() {
 }
 
 /*
-** This method marks all the hike locations along with info-windows on the map
-*/
+ * This method marks all the hike locations along with info-windows on the map
+ */
 function addOverlays() {
     <c:forEach items="${hikeList}" var="hike" varStatus="status">
         i = ${status.count} - 1;
@@ -150,8 +150,6 @@ function addOverlays() {
         markersArr[i] = marker;
         
         google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(this.getTitle());
-            infowindow.open(map, this);
             var hikeRowId = "";
             for(var m = 0; m < markersArr.length; m++){
                 if(markersArr[m] == this) {
@@ -163,6 +161,8 @@ function addOverlays() {
                 var element = document.getElementById(hikeRowId);
                 element.scrollIntoView(true);
                 menuItemSelectedStyle(m);
+                infowindow.setContent(infoWindowContent(this.getTitle(), m));
+                infowindow.open(map, this);
             }
         });
     
@@ -173,28 +173,48 @@ function addOverlays() {
 }
 
 /*
- ** This method gets invoked when the user clicks on any hike from the menu list
+ * This method creates the HTML for the infoWindow
+ */
+function infoWindowContent(title, index) {
+    var thumbnailDiv = "<div class='thumbnailDiv'><img class='thumbnailImage' src='<c:url value='/resc/images/thumbnail.jpg'/>'/></div>";
+    var quickInfoDiv = "<div class='quickInfo'><a href='#' onclick='hikeDetailsAjax(" + index + ")'><b>" + title + "</b></a></div>";
+    var infoWindowdiv = "<div class='infowindow'>" + thumbnailDiv + quickInfoDiv + "</div>";
+    return infoWindowdiv;
+}
+
+/*
+ * This method gets invoked when the user clicks on any hike from the menu list
  */
 function itemClicked(i) {
-    //map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
-    //map.setZoom(18);
-    //map.setTilt(45);
-    
     var hikeName = markersArr[i].getTitle();
     menuItemSelectedStyle(i);
     
-    //doAjax(hikeName,i);
     var marker = markersArr[i];
-    infowindow.setContent(hikeName);
+    infowindow.setContent(infoWindowContent(hikeName, i));
     infowindow.open(map, marker);
 }
 
+/*
+ * This method takes a hikeId and changes the map configurations to focus on corresponding hike
+ * For instance, change the map zoom level, center the map on the hike summit point
+ */
+function focusOnHike(i) {
+    map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
+    map.setZoom(16);
+}
+
+/*
+ * A utility function to remove the spaces in/between hike-name words eg. Bilikal Rangaswamy Betta -> BilikalRangaswamyBetta
+ */
 function trimHikeName(hikeName) {
     return hikeName.replace(/\s+/g,"");
 }
 
-// This method retrieves the hike details when user clicks on a hike
-function doAjax(hikeName,hikeId) {
+/*
+ * This method retrieves the hike details when user clicks on a hike
+ */ 
+function hikeDetailsAjax(hikeId) {
+	var hikeName = trimHikeName(markersArr[hikeId].getTitle());
     $.getJSON("hikeDetails.htm?hikeName="+hikeName,
         function(data){
           $.each(data.details, function(i,item){
@@ -232,8 +252,14 @@ function doAjax(hikeName,hikeId) {
               }
           });
         });
+    
+    focusOnHike(hikeId);
 }
 
+/*
+ * This method is invoked when the user clicks on a row of the data table
+ * It changes the styling of the selected row
+ */
 function menuItemSelectedStyle(i) {
     $("tr[name=hikeRow]").removeClass("selectedHikeRow").addClass("unselectedHikeRow");
     var hikeRowId = "hikeRow_" + i + "-" + trimHikeName(markersArr[i].getTitle());
@@ -272,7 +298,7 @@ function computeDistances() {
 
 function callback(response, status) {
     //Insert new columns for distance and time to dataTable
-	$("#dataTable tr:first").append("<th class='hikeInfo header'>Distance</th>");
+    $("#dataTable tr:first").append("<th class='hikeInfo header'>Distance</th>");
     $("#dataTable tr:first").append("<th class='hikeInfo header'>Time</th>");
     
     //Alter column widths to create space for distance and time columns
@@ -322,6 +348,9 @@ function displayRouteToDestination(i) {
     }
 }
 
+/*
+ * This method is invoked when the user clicks on the 'Reset button'
+ */
 function resetMap() {
     // Change mapType to Hybrid
     map.setMapTypeId(google.maps.MapTypeId.HYBRID);
@@ -333,7 +362,10 @@ function resetMap() {
     infowindow.close();
 }
     
-
+/*
+ * This method creates a custom map control, called 'Reset'.
+ * Clicking on the reset button will bring the map back to it's original, home-page view
+ */
 function resetControlConstructor(controlDiv, map) {
 
     // Set CSS styles for the DIV containing the control
