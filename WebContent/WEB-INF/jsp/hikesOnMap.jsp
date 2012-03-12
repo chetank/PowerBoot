@@ -8,8 +8,9 @@
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
 </script>
 
-<!-- Import Google Earth API -->
+<!-- Import Google Earth API
 <script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck"></script>
+-->
 
 <!-- Import Google Places API -->
  <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
@@ -51,8 +52,7 @@ $(document).ready(function()
                     <tr id="hikeRow_${status.count-1}-${hikeNameTrimmed}" 
                         class="unselectedHikeRow"
                         name="hikeRow" 
-                        onclick="itemClicked(${status.count-1});"
-                        onMouseOver="displayRouteToDestination(${status.count-1})">
+                        onclick="itemClicked(${status.count-1});">
                         <td class="hikeName" width="40%"><c:out value="${hike.name}" />
                             <span id="carParkPoint_${status.count-1}" style="display: none;"></span>
                         </td>
@@ -68,7 +68,7 @@ $(document).ready(function()
 
 <script type="text/javascript">
 
-google.load('earth', '1');
+//google.load('earth', '1');
 google.maps.event.addDomListener(window, 'load', init);
 
 /*
@@ -106,7 +106,7 @@ function init() {
         center: new google.maps.LatLng(0,0),
         mapTypeId: google.maps.MapTypeId.HYBRID
     });
-    googleEarth = new GoogleEarth(map);
+    //googleEarth = new GoogleEarth(map);
     google.maps.event.addListenerOnce(map, 'tilesloaded', addOverlays);
     
     autocomplete = new google.maps.places.Autocomplete(input);
@@ -200,7 +200,7 @@ function itemClicked(i) {
  */
 function focusOnHike(i) {
     map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
-    map.setZoom(16);
+    map.setZoom(14);
 }
 
 /*
@@ -214,11 +214,13 @@ function trimHikeName(hikeName) {
  * This method retrieves the hike details when user clicks on a hike
  */ 
 function hikeDetailsAjax(hikeId) {
-	var hikeName = trimHikeName(markersArr[hikeId].getTitle());
-    $.getJSON("hikeDetails.htm?hikeName="+hikeName,
+    var hikeNameTrimmed = trimHikeName(markersArr[hikeId].getTitle());
+    var details = "";
+    $.getJSON("hikeDetails.htm?hikeName="+hikeNameTrimmed,
         function(data){
           $.each(data.details, function(i,item){
               var featureName = item.name;
+              details = details + featureName + "<br/>";
               if (item.trail.length == 1) { //feature is a single point
                  var lng = item.trail[0].longitude;
                  var lat = item.trail[0].latitude;
@@ -251,8 +253,10 @@ function hikeDetailsAjax(hikeId) {
                     hikePath.setMap(map);
               }
           });
+          $("#Features").html(details);
+          $("#hikeTitle").html(markersArr[hikeId].getTitle());
+          $("#hikeId").val(hikeId);
         });
-    
     focusOnHike(hikeId);
 }
 
@@ -283,7 +287,6 @@ function computeDistances() {
     </c:forEach>
 
     originMarker.setPosition(origin);
-    originMarker.setIcon(place.icon);
 
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
@@ -324,6 +327,9 @@ function callback(response, status) {
         }
     }
     $("#dataTable").tablesorter();
+    if(($("#hikeId").val() != undefined) || ($("#hikeId").val != "")) {
+        displayRouteToDestination($("#hikeId").val());
+    }
 }
 
 function displayRouteToDestination(i) {
@@ -340,26 +346,27 @@ function displayRouteToDestination(i) {
         directionsService.route(request, function(result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(result);
+                $("#Directions").html("<h3><a href='#' onclick='displayDirectionsOnMap()'>Show directions on map</a> | <a href='#' onclick='hideDirectionsOnMap()'>Hide directions from map</a><br/></h3>");
+                directionsDisplay.setPanel(document.getElementById("Directions"));
             }
         });
-
-        directionsDisplay.setMap(map);
-        menuItemSelectedStyle(i);
     }
+}
+
+function displayDirectionsOnMap() {
+    directionsDisplay.setMap(map);
+}
+
+function hideDirectionsOnMap() {
+    directionsDisplay.setMap(null);
 }
 
 /*
  * This method is invoked when the user clicks on the 'Reset button'
  */
 function resetMap() {
-    // Change mapType to Hybrid
-    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    
-    // Reset map bounds
-    map.fitBounds(bounds); 
-    
-    //Close any open info windows
-    infowindow.close();
+    // call init() method again which will reset everything
+    init();
 }
     
 /*

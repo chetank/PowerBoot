@@ -67,6 +67,7 @@ body a {
     font-size: 13pt;
     float: left;
     padding-right: 10px;
+    padding-top: 9px;
 }
 
 .distance {
@@ -163,3 +164,19 @@ div.quickInfo {
     text-align: left;
     width: 110px;
 }
+
+#hikeDetails {
+	padding-left: 10px;
+}
+
+.etabs { margin: 0; padding: 0; }
+.tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; }
+.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; }
+.tab a:hover { text-decoration: underline; }
+.tab.active { background: #fff; position: relative; top: 1px; border-color: #666; }
+.tab a.active { font-weight: bold; }
+.tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
+
+.h2 { font-size: 14px; display: block; outline: none; font-weight: bold; }
+
+h3 {font-weight: normal; font-size: 12px;}
