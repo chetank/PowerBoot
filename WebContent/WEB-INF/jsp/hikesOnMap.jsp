@@ -220,7 +220,6 @@ function hikeDetailsAjax(hikeId) {
         function(data){
           $.each(data.details, function(i,item){
               var featureName = item.name;
-              details = details + featureName + "<br/>";
               if (item.trail.length == 1) { //feature is a single point
                  var lng = item.trail[0].longitude;
                  var lat = item.trail[0].latitude;
@@ -252,12 +251,35 @@ function hikeDetailsAjax(hikeId) {
                     });
                     hikePath.setMap(map);
               }
+              details = details + "<a href='#' onclick='showFeatureOnMap(this)' id='" + lat + '#' + lng + '#' + featureName + '#' + item.style + "'>" + featureName + "</a><br/>";
           });
           $("#Features").html(details);
           $("#hikeTitle").html(markersArr[hikeId].getTitle());
           $("#hikeId").val(hikeId);
         });
     focusOnHike(hikeId);
+}
+
+/*
+ * This method displays a feature or point on the map
+ * The input is the object of anchor tag, whose id is <lat#lng>
+ */
+function showFeatureOnMap(feature) {
+    var latlng = feature.id;
+    var lat = latlng.split("#")[0];
+    var lng = latlng.split("#")[1];
+    var featureName = latlng.split("#")[2];
+    var style = latlng.split("#")[3];
+    var point = new google.maps.LatLng(lat, lng);
+    var feature = new google.maps.Marker({
+        position: point,
+        map: map,
+        title: featureName,
+        icon: style,
+        animation: google.maps.Animation.DROP
+    });
+    infowindow.setContent(featureName);
+    infowindow.open(map, feature);
 }
 
 /*
