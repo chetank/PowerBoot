@@ -13,13 +13,21 @@
 -->
 
 <!-- Import Google Places API -->
- <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
+<script
+    src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+    type="text/javascript"></script>
 
 <!-- Import Google-Utility libraries -->
-<script type="text/javascript" src="<c:url value="/resc/js/googleearth-compiled.js"/>"></script>
+<script type="text/javascript"
+    src="<c:url value="/resc/js/googleearth-compiled.js"/>"></script>
 
 <!-- Import Table Sorter API -->
-<script type="text/javascript" src="<c:url value="/resc/js/jquery.tablesorter.min.js"/>"></script>
+<script type="text/javascript"
+    src="<c:url value="/resc/js/jquery.tablesorter.min.js"/>"></script>
+
+<!-- Import hike Models in JS -->
+<script type="text/javascript"
+    src="<c:url value="/resc/js/hikeModels.js"/>"></script>
 
 <script>
 $(document).ready(function() 
@@ -28,43 +36,37 @@ $(document).ready(function()
         } 
     );
 </script>
-    <div id="map"></div>
-    <div id="dataGrid">
-        <table id="dataTable" class="dataTable">
-            <thead>
-                <tr id="dataTableHeader">
-                    <th class="hikeName" width="40%">Name
-                    </th>
-                    <th class="hikeInfo">Elev. Gain (ft)
-                    </th>
-                    <th class="hikeInfo">Summit (ft)
-                    </th>
-                    <th class="hikeInfo">Duration (hrs)
-                    </th>
-                    <th class="hikeInfo">Level
-                    </th>
+<div id="map"></div>
+<div id="dataGrid">
+    <table id="dataTable" class="dataTable">
+        <thead>
+            <tr id="dataTableHeader">
+                <th class="hikeName" width="40%">Name</th>
+                <th class="hikeInfo">Elev. Gain (ft)</th>
+                <th class="hikeInfo">Summit (ft)</th>
+                <th class="hikeInfo">Duration (hrs)</th>
+                <th class="hikeInfo">Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${hikeList}" var="hike" varStatus="status">
+                <c:set var="hikeNameTrimmed" value="${fn:replace(hike.name,' ','')}"></c:set>
+                <c:set var="elev" value="${status.count+1}"></c:set>
+                <tr id="hikeRow_${status.count-1}-${hikeNameTrimmed}"
+                    class="unselectedHikeRow" name="hikeRow"
+                    onclick="itemClicked(${status.count-1});">
+                    <td class="hikeName" width="40%"><c:out value="${hike.name}" />
+                        <span id="carParkPoint_${status.count-1}" style="display: none;"></span>
+                    </td>
+                    <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
+                    <td class="hikeInfo">2500</td>
+                    <td class="hikeInfo">3</td>
+                    <td class="hikeInfo">Easy</td>
                 </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${hikeList}" var="hike" varStatus="status">
-                    <c:set var="hikeNameTrimmed" value="${fn:replace(hike.name,' ','')}"></c:set>
-                    <c:set var="elev" value="${status.count+1}"></c:set>
-                    <tr id="hikeRow_${status.count-1}-${hikeNameTrimmed}" 
-                        class="unselectedHikeRow"
-                        name="hikeRow" 
-                        onclick="itemClicked(${status.count-1});">
-                        <td class="hikeName" width="40%"><c:out value="${hike.name}" />
-                            <span id="carParkPoint_${status.count-1}" style="display: none;"></span>
-                        </td>
-                        <td class="hikeInfo"><c:out value="${elev}"></c:out></td>
-                        <td class="hikeInfo">2500</td>
-                        <td class="hikeInfo">3</td>
-                        <td class="hikeInfo">Easy</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 <script type="text/javascript">
 
@@ -79,7 +81,6 @@ var bounds = new google.maps.LatLngBounds();
 var map;
 var marker;
 var originMarker;
-var markersArr = [];
 
 var point;
 var infowindow = new google.maps.InfoWindow({
@@ -89,7 +90,8 @@ var input = document.getElementById('searchPlaceTextField');
 var autocomplete = new google.maps.places.Autocomplete(input);
 var directionsDisplay = new google.maps.DirectionsRenderer();
 var iconImage = 'resc/images/hikeMarker.gif';
-var feature = 'resc/images/feature.gif';
+var features = new Array();
+var hikes = new Array();
 
 var icon = new google.maps.MarkerImage(
         iconImage,
@@ -98,7 +100,6 @@ var icon = new google.maps.MarkerImage(
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(20, 24)
     );
-
 
 function init() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -147,12 +148,11 @@ function addOverlays() {
             title: '${hike.name}',
             icon: icon
         });
-        markersArr[i] = marker;
         
         google.maps.event.addListener(marker, 'click', function() {
             var hikeRowId = "";
-            for(var m = 0; m < markersArr.length; m++){
-                if(markersArr[m] == this) {
+            for(var m = 0; m < hikes.length; m++){
+                if(hikes[m].summitMarker == this) {
                     hikeRowId = "hikeRow_" + m + "-" + trimHikeName(this.getTitle());
                     break;
                 }
@@ -165,7 +165,12 @@ function addOverlays() {
                 infowindow.open(map, this);
             }
         });
-    
+        
+        var hike = new hikeDetails();
+        hike.setName('${hike.name}');
+        hike.setId(i);
+        hike.setSummitMarker(marker);
+        hikes.push(hike);
         bounds.extend(point);
     </c:forEach>
 
@@ -186,10 +191,10 @@ function infoWindowContent(title, index) {
  * This method gets invoked when the user clicks on any hike from the menu list
  */
 function itemClicked(i) {
-    var hikeName = markersArr[i].getTitle();
+    var hikeName = hikes[i].summitMarker.getTitle();
     menuItemSelectedStyle(i);
     
-    var marker = markersArr[i];
+    var marker = hikes[i].summitMarker;
     infowindow.setContent(infoWindowContent(hikeName, i));
     infowindow.open(map, marker);
 }
@@ -199,7 +204,7 @@ function itemClicked(i) {
  * For instance, change the map zoom level, center the map on the hike summit point
  */
 function focusOnHike(i) {
-    map.setCenter(new google.maps.LatLng(markersArr[i].getPosition().lat(),markersArr[i].getPosition().lng()));
+    map.setCenter(new google.maps.LatLng(hikes[i].summitMarker.getPosition().lat(),hikes[i].summitMarker.getPosition().lng()));
     map.setZoom(14);
 }
 
@@ -214,49 +219,50 @@ function trimHikeName(hikeName) {
  * This method retrieves the hike details when user clicks on a hike
  */ 
 function hikeDetailsAjax(hikeId) {
-    var hikeNameTrimmed = trimHikeName(markersArr[hikeId].getTitle());
-    var details = "";
-    $.getJSON("hikeDetails.htm?hikeName="+hikeNameTrimmed,
-        function(data){
-          $.each(data.details, function(i,item){
-              var featureName = item.name;
-              if (item.trail.length == 1) { //feature is a single point
-                 var lng = item.trail[0].longitude;
-                 var lat = item.trail[0].latitude;
-                 var point = new google.maps.LatLng(lat, lng);
-                 var feature = new google.maps.Marker({
-                         position: point,
-                         map: map,
-                         title: featureName,
-                         icon: item.style,
-                         animation: google.maps.Animation.DROP
-                     });
-                 if(featureName == "Car Parking") {
-                    $("#carParkPoint_" + hikeId).text(lat + "#" + lng);
-                 }
-              } else if (item.trail.length > 1) { //feature is a trail
+    var hikeNameTrimmed = trimHikeName(hikes[hikeId].name);
+    if(hikes[hikeId].features == null) {
+        $.getJSON("hikeDetails.htm?hikeName="+hikeNameTrimmed,
+            function(data){
+              $.each(data.details, function(i,item){
+                  var images = [];
                   var trailPoints = [];
-                  for (j = 0 ; j < item.trail.length; j++) {
-                      var lat = item.trail[j].latitude;
-                      var lng = item.trail[j].longitude;
-                      var trailPoint = new google.maps.LatLng(lat,lng);
-                      trailPoints[j] = trailPoint;
+                  var point = '';
+                  
+                  var feature = new hikeFeature();
+    
+                  if(item.images) {
+                      for (var j = 0 ; j < item.images.length; j++) {
+                          images[j] = item.images[j];
+                      }
                   }
-                  var trailColor = item.style;
-                  var hikePath = new google.maps.Polyline({
-                        path: trailPoints,
-                        strokeColor: "red",
-                        strokeOpacity: 0.7,
-                        strokeWeight: 2
-                    });
-                    hikePath.setMap(map);
-              }
-              details = details + "<a href='#' onclick='showFeatureOnMap(this)' id='" + lat + '#' + lng + '#' + featureName + '#' + item.style + "'>" + featureName + "</a><br/>";
-          });
-          $("#Features").html(details);
-          $("#hikeTitle").html(markersArr[hikeId].getTitle());
-          $("#hikeId").val(hikeId);
-        });
+                  
+                  if (item.trail.length == 1) { //feature is a single point
+                    feature.setPoint(new google.maps.LatLng(item.trail[0].latitude, item.trail[0].longitude));
+                   } else if (item.trail.length > 1) { //feature is a trail
+                       for (var j = 0 ; j < item.trail.length; j++) {
+                           var lat = item.trail[j].latitude;
+                           var lng = item.trail[j].longitude;
+                           var trailPoint = new google.maps.LatLng(lat,lng);
+                           trailPoints[j] = trailPoint;
+                       }
+                       feature.setTrail(trailPoints);
+                   }
+                  
+                  if(item.name == "Car Parking") {
+                      hikes[hikeId].setParkingPoint(feature.point);
+                   }
+                  
+                  feature.setName(item.name);
+                  feature.setDescription(item.description);
+                  feature.setImages(images);
+                  feature.setStyle(item.style);
+                  features.push(feature);
+                  hikes[hikeId].setFeatures(features);
+              });
+              displayHikeFeaturesOnSideBar(features,hikeId);
+            });
+    }
+    displayHikeFeaturesOnSideBar(features,hikeId);
     focusOnHike(hikeId);
 }
 
@@ -264,22 +270,17 @@ function hikeDetailsAjax(hikeId) {
  * This method displays a feature or point on the map
  * The input is the object of anchor tag, whose id is <lat#lng>
  */
-function showFeatureOnMap(feature) {
-    var latlng = feature.id;
-    var lat = latlng.split("#")[0];
-    var lng = latlng.split("#")[1];
-    var featureName = latlng.split("#")[2];
-    var style = latlng.split("#")[3];
-    var point = new google.maps.LatLng(lat, lng);
-    var feature = new google.maps.Marker({
-        position: point,
+function showFeatureOnMap(id) {
+    var feature = features[id];
+    var featureMarker = new google.maps.Marker({
+        position: feature.point,
         map: map,
-        title: featureName,
-        icon: style,
+        title: feature.name,
+        icon: feature.style,
         animation: google.maps.Animation.DROP
     });
-    infowindow.setContent(featureName);
-    infowindow.open(map, feature);
+    infowindow.setContent(feature.name);
+    infowindow.open(map, featureMarker);
 }
 
 /*
@@ -288,7 +289,7 @@ function showFeatureOnMap(feature) {
  */
 function menuItemSelectedStyle(i) {
     $("tr[name=hikeRow]").removeClass("selectedHikeRow").addClass("unselectedHikeRow");
-    var hikeRowId = "hikeRow_" + i + "-" + trimHikeName(markersArr[i].getTitle());
+    var hikeRowId = "hikeRow_" + i + "-" + trimHikeName(hikes[i].summitMarker.getTitle());
     console.log(hikeRowId);
     $("#" + hikeRowId).removeClass("unselectedHikeRow").addClass("selectedHikeRow");
 }
@@ -355,8 +356,7 @@ function callback(response, status) {
 }
 
 function displayRouteToDestination(i) {
-    var destinationCoordinates = $("#carParkPoint_" + i).text().split("#");
-    var destinationPoint = new google.maps.LatLng(destinationCoordinates[0], destinationCoordinates[1]);
+    var destinationPoint = hikes[i].parkingPoint;
     if ((autocomplete.getPlace() != undefined )) {
         var directionsService = new google.maps.DirectionsService();
         var request = {

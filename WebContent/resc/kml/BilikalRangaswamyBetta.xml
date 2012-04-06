@@ -1,51 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
+<kml xmlns="http://www.opengis.net/kml/2.2">>
 <Document>
   <name>Bilikal Rangaswamy Betta</name>
   <description><![CDATA[]]></description>
-  <Style id="style19">
+  <Style id="style13">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style2">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style9">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style11">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style1">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style3">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style7">
+  <Style id="style14">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
@@ -59,89 +24,89 @@
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style12">
+  <Style id="style9">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style1">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style16">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/parkinglot.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style5">
+  <Style id="style8">
     <LineStyle>
       <color>73FF0000</color>
       <width>5</width>
     </LineStyle>
   </Style>
-  <Style id="style16">
+  <Style id="style15">
     <LineStyle>
       <color>730000FF</color>
       <width>5</width>
     </LineStyle>
   </Style>
-  <Style id="style21">
+  <Style id="style3">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style20">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style4">
-    <IconStyle>
-      <Icon>
-        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="style18">
+  <Style id="style2">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/hospitals.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style13">
+  <Style id="style7">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/rangerstation.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style15">
+  <Style id="style4">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/police.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style6">
+  <Style id="style5">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/hospitals.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style8">
+  <Style id="style12">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/firedept.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style14">
+  <Style id="style6">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png</href>
       </Icon>
     </IconStyle>
   </Style>
-  <Style id="style17">
+  <Style id="style11">
     <IconStyle>
       <Icon>
         <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
@@ -150,80 +115,63 @@
   </Style>
   <Placemark>
     <name>Trek Summit</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style19</styleUrl>
+    <Snippet></Snippet>
+    <description><![CDATA[<img src="http://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Bilikal_Rangaswamy_Temple.png/220px-Bilikal_Rangaswamy_Temple.png">]]></description>
+    <styleUrl>#style13</styleUrl>
     <Point>
       <coordinates>77.512077,12.554092,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Bannerghatta - Nice Road Junction</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style2</styleUrl>
+    <styleUrl>#style14</styleUrl>
     <Point>
       <coordinates>77.588242,12.850339,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Turn towards Harohalli</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style9</styleUrl>
+    <styleUrl>#style10</styleUrl>
     <Point>
       <coordinates>77.527298,12.857410,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
-    <name>Harohalli Bus Stand</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style11</styleUrl>
-    <Point>
-      <coordinates>77.469383,12.679918,0.000000</coordinates>
-    </Point>
-  </Placemark>
-  <Placemark>
-    <name>Oonala Doddi</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style1</styleUrl>
-    <Point>
-      <coordinates>77.506660,12.573413,0.000000</coordinates>
-    </Point>
-  </Placemark>
-  <Placemark>
-    <name>Doddi Maralwadi CP 1</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style3</styleUrl>
-    <Point>
-      <coordinates>77.523048,12.612992,0.000000</coordinates>
-    </Point>
-  </Placemark>
-  <Placemark>
     <name>Doddi Maralwadi CP 2</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style7</styleUrl>
+    <styleUrl>#style9</styleUrl>
     <Point>
       <coordinates>77.524857,12.611443,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Doddi Maralwadi</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style10</styleUrl>
+    <styleUrl>#style1</styleUrl>
     <Point>
       <coordinates>77.521851,12.593853,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Car Parking</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style12</styleUrl>
+    <Snippet></Snippet>
+    <description><![CDATA[Car Parking Point<br/><img src="http://1.bp.blogspot.com/-i91T42MP3pw/TWPd78NEgMI/AAAAAAAAG_w/21-rlvFGpDw/s1600/RangaswamyBetta%2B020.JPG" style="width:245px">]]></description>
+    <styleUrl>#style16</styleUrl>
     <Point>
       <coordinates>77.506935,12.573643,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>ToHikeTrail</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style5</styleUrl>
+    <styleUrl>#style8</styleUrl>
     <LineString>
       <tessellate>1</tessellate>
       <coordinates>
@@ -258,8 +206,9 @@
   </Placemark>
   <Placemark>
     <name>HikeTrail</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style16</styleUrl>
+    <Snippet></Snippet>
+    <description><![CDATA[<img src="http://4.bp.blogspot.com/_ibmdDxfaxQ8/TSsnw9WnXfI/AAAAAAAABOw/DiCEaL26Y6w/s1600/DSC01528.jpg" style="width:245px">]]></description>
+    <styleUrl>#style15</styleUrl>
     <LineString>
       <tessellate>1</tessellate>
       <coordinates>
@@ -337,81 +286,73 @@
     </LineString>
   </Placemark>
   <Placemark>
-    <name>Doddi Maralwadi CP 5</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style21</styleUrl>
-    <Point>
-      <coordinates>77.522881,12.596743,0.000000</coordinates>
-    </Point>
-  </Placemark>
-  <Placemark>
     <name>Doddi Maralwadi CP 4</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style20</styleUrl>
+    <styleUrl>#style3</styleUrl>
     <Point>
       <coordinates>77.521935,12.606333,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
-    <name>Doddi Maralwadi CP 3</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>#style4</styleUrl>
-    <Point>
-      <coordinates>77.524208,12.609516,0.000000</coordinates>
-    </Point>
-  </Placemark>
-  <Placemark>
     <name>Dr. M Raja Thomas</name>
+    <Snippet>145/7, Francina Villa, Koramangala, Jakkasandra, Jakkasandra, Bengaluru, Karnata</Snippet>
     <description><![CDATA[<div dir="ltr">145/7, Francina Villa, Koramangala, Jakkasandra, Jakkasandra, Bengaluru, Karnataka 560034, India<br>+91 80 2553 3349 ‎<br>Specialist: Physiotherapy (muscular)</div>]]></description>
-    <styleUrl>#style18</styleUrl>
+    <styleUrl>#style2</styleUrl>
     <Point>
       <coordinates>77.439880,12.649048,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Forest Office</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style13</styleUrl>
+    <styleUrl>#style7</styleUrl>
     <Point>
       <coordinates>77.689819,12.044693,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Rural Police Station, Kanakapura</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style15</styleUrl>
+    <styleUrl>#style4</styleUrl>
     <Point>
       <coordinates>77.419968,12.555234,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Dr.H.V RajaShekara Reddy</name>
+    <Snippet>283-30, 1st Main Road, Jakkasandra, Jakkasandra, Bengaluru, Karnataka 560034, In</Snippet>
     <description><![CDATA[<div dir="ltr">283-30, 1st Main Road, Jakkasandra, Jakkasandra, Bengaluru, Karnataka 560034, India<br>+91 80 2563 3887 ‎<br>Specialist: Circulatory and Vascular </div>]]></description>
-    <styleUrl>#style6</styleUrl>
+    <styleUrl>#style5</styleUrl>
     <Point>
       <coordinates>77.439880,12.655078,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
-    <name>Bannshankari Fire Brigade </name>
+    <name>Bannshankari Fire Brigade</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style8</styleUrl>
+    <styleUrl>#style12</styleUrl>
     <Point>
       <coordinates>77.566223,12.933630,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Harohalli - Food/Shops</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style14</styleUrl>
+    <styleUrl>#style6</styleUrl>
     <Point>
       <coordinates>77.469727,12.680090,0.000000</coordinates>
     </Point>
   </Placemark>
   <Placemark>
     <name>Towards Maralwadi Village</name>
+    <Snippet></Snippet>
     <description><![CDATA[]]></description>
-    <styleUrl>#style17</styleUrl>
+    <styleUrl>#style11</styleUrl>
     <Point>
       <coordinates>77.474556,12.678526,0.000000</coordinates>
     </Point>

@@ -20,6 +20,10 @@ $(document).ready(function()
             <li class='tab'><a href="#Directions">Directions</a></li>
         </ul>
         <div id="Information">
+          <div id="images">
+              <ul id="featureImages">
+              </ul>
+          </div>
           <div id="elevationChart">
           </div>
         </div>
