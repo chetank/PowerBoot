@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ include file="header.jsp"%>
 <script src="<c:url value="/resc/js/jquery.easytabs.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resc/js/jcarousellite_1.0.1.min.js"/>" type="text/javascript"></script>
 <script>
 $(document).ready(function() 
         { 
@@ -20,12 +21,14 @@ $(document).ready(function()
             <li class='tab'><a href="#Directions">Directions</a></li>
         </ul>
         <div id="Information">
-          <div id="images">
-              <ul id="featureImages">
-              </ul>
-          </div>
-          <div id="elevationChart">
-          </div>
+            <div id="basicInfo"></div>
+            <div id="social"></div>
+            <div id="images" class="imageGallery">
+              <ul id="featureImages"></ul>
+            </div>
+            <button class="prev"></button>
+            <button class="next"></button>
+            <div id="chart_div" style="width:512px; height:200px"></div>
         </div>
         <div id="Features">
         </div>

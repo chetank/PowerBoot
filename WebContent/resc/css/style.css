@@ -169,6 +169,10 @@ div.quickInfo {
 	padding-left: 10px;
 }
 
+button.prev, button.next {
+	
+}
+
 .etabs { margin: 0; padding: 0; }
 .tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; }
 .tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; }
@@ -180,3 +184,18 @@ div.quickInfo {
 .h2 { font-size: 14px; display: block; outline: none; font-weight: bold; }
 
 h3 {font-weight: normal; font-size: 12px;}
+
+background-image: linear-gradient(bottom, rgb(77,128,105) 31%, rgb(98,196,157) 69%, rgb(175,230,192) 94%);
+background-image: -o-linear-gradient(bottom, rgb(77,128,105) 31%, rgb(98,196,157) 69%, rgb(175,230,192) 94%);
+background-image: -moz-linear-gradient(bottom, rgb(77,128,105) 31%, rgb(98,196,157) 69%, rgb(175,230,192) 94%);
+background-image: -webkit-linear-gradient(bottom, rgb(77,128,105) 31%, rgb(98,196,157) 69%, rgb(175,230,192) 94%);
+background-image: -ms-linear-gradient(bottom, rgb(77,128,105) 31%, rgb(98,196,157) 69%, rgb(175,230,192) 94%);
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.31, rgb(77,128,105)),
+    color-stop(0.69, rgb(98,196,157)),
+    color-stop(0.94, rgb(175,230,192))
+);

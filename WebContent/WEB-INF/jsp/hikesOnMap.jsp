@@ -8,6 +8,9 @@
     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck&sensor=true">
 </script>
 
+<!-- Import Google Common API -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 <!-- Import Google Earth API
 <script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyDGY28fAU9jlbBlLdP9WZ7BBM6KLeslSck"></script>
 -->
@@ -246,6 +249,7 @@ function hikeDetailsAjax(hikeId) {
                            trailPoints[j] = trailPoint;
                        }
                        feature.setTrail(trailPoints);
+                       hikes[hikeId].setTrail(trailPoints);
                    }
                   
                   if(item.name == "Car Parking") {
