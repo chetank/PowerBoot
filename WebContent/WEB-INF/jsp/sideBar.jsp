@@ -12,7 +12,7 @@ $(document).ready(function()
 </script>
 
 <input type="hidden" id="hikeId" name="hikeId" value="novalue"/>
-<div id="hikeDetails">
+<div id="hikeDetails" style="display:none">
   <div class="h2" id="hikeTitle"></div>
     <div id="tab-container" class="tab-container">
         <ul class='etabs'>
@@ -23,12 +23,14 @@ $(document).ready(function()
         <div id="Information">
             <div id="basicInfo"></div>
             <div id="social"></div>
-            <div id="images" class="imageGallery">
-              <ul id="featureImages"></ul>
+            <div id="images">
+                <div class="imageGallery">
+                  <ul id="featureImages"></ul>
+                </div>
+                <button class="prev">Previous</button>
+                <button class="next">Next</button>
             </div>
-            <button class="prev"></button>
-            <button class="next"></button>
-            <div id="chart_div" style="width:512px; height:200px"></div>
+            <div id="chart_div" style="width:412px; height:200px"></div>
         </div>
         <div id="Features">
         </div>

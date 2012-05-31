@@ -9,7 +9,7 @@ import java.util.List;
 import au.com.bytecode.opencsv.CSVReader;
 
 import com.google.gdata.client.Service.GDataRequest;
-import com.powerboot.model.HikeListModel;
+import com.powerboot.model.HikeModel;
 
 public class HikesRowMapper {
     
@@ -29,12 +29,12 @@ public class HikesRowMapper {
         List<String[]> rows = csvLines.subList(1, csvLines.size());
         
         //map the result set to create a List<HikeListModel>
-        List<HikeListModel> hikeList = new ArrayList<HikeListModel>();
+        List<HikeModel> hikeList = new ArrayList<HikeModel>();
         
         HikesResultSetExtractor extractor = new HikesResultSetExtractor();
         
         for(String[] row: rows) {
-            HikeListModel hike = extractor.extractData(row);
+            HikeModel hike = extractor.extractData(row);
             hikeList.add(hike);
         }
         

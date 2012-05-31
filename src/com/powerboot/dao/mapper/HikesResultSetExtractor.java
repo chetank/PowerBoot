@@ -1,12 +1,12 @@
 package com.powerboot.dao.mapper;
 
 
-import com.powerboot.model.HikeListModel;
+import com.powerboot.model.HikeModel;
 
 public class HikesResultSetExtractor  {
 	
-    public HikeListModel extractData(String[] row)  {
-        HikeListModel hike = new HikeListModel();
+    public HikeModel extractData(String[] row)  {
+        HikeModel hike = new HikeModel();
         hike.setName(row[1]);
         hike.setLatitude(row[2]);
         hike.setLongitude(row[3]);

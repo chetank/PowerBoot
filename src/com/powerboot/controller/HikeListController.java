@@ -12,27 +12,27 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.powerboot.dao.HikesListDao;
-import com.powerboot.dao.HikesListIDao;
-import com.powerboot.model.HikeListModel;
+import com.powerboot.dao.HikesDaoImpl;
+import com.powerboot.dao.HikesDao;
+import com.powerboot.model.HikeModel;
 
-public class HikeListController implements Controller {
+public class HikeListController extends BaseController implements Controller {
 
     protected static Logger myLogger = Logger.getLogger(HikeListController.class.getName());
-    ApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml");
+    
     
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
   
-        HikesListIDao dao = (HikesListDao) context.getBean("hikesDAO");
-        List<HikeListModel> hikeList = dao.selectAll();
+        HikesDao dao = (HikesDaoImpl) context.getBean("hikesDAO");
+        List<HikeModel> hikeList = dao.selectAll();
         
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("hikeList", hikeList);
         
         //close the db connection
-        DataSource ds = (DataSource) context.getBean("dataSource");
-        ds.getConnection().close();
+        //DataSource ds = (DataSource) context.getBean("dataSource");
+        //ds.getConnection().close();
         
         return modelAndView;
     }

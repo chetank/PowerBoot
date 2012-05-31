@@ -1,48 +1,53 @@
 package com.powerboot.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.powerboot.dbops.KmlParser;
-import com.powerboot.model.HikeFeature;
+import com.powerboot.datasource.DataSourceFlavor;
+import com.powerboot.datasource.HikeDataSourceFacade;
+import com.powerboot.model.HikeModel;
 
+/**
+ * @author chkumar
+ *
+ * This class derives the data for the hike from 2 sources:
+ * 1. KML file of the hike
+ * 2. Google fusion table
+ * 
+ * Google fusion tables have basic information for the hike, for eg., elevation gain, distance etc.
+ * KML file have more in-depth information about the hike, eg., trail points, parking, features etc.
+ */
 public class HikeDetailsController extends AbstractController implements Controller {
 
     private String hikeName = "";
-    private String dirLocation = "resc/kml/";
+    private String dataSourceFlavor;
+
+    ApplicationContext context = new ClassPathXmlApplicationContext("spring-beans.xml");
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+
         this.hikeName = request.getParameter("hikeName");
-        if(this.hikeName == null) {
+    	
+    	if(this.hikeName == null) {
             throw new IllegalArgumentException("Value of request parameter, hike name, is null or empty");
         }
         
-        String filePath = this.getServletContext().getRealPath(dirLocation + hikeName + ".xml");
+        HikeDataSourceFacade dataSourceFacade = new HikeDataSourceFacade(this.context, this.getServletContext());
+        HikeModel hikeDetails = dataSourceFacade.getData(this.hikeName, DataSourceFlavor.valueOf(this.dataSourceFlavor));
         
-        List<HikeFeature> hikeFeatures;
-        try {
-
-            hikeFeatures = KmlParser.parseKml(filePath);
-            Map<String, List<HikeFeature>> hikeDetails = new HashMap<String,List<HikeFeature>>();
-            hikeDetails.put("details",hikeFeatures);
-            return new ModelAndView("jsonView", hikeDetails);
-
-        } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+        Map<String, HikeModel> hikeDetailsJSONMap = new HashMap<String,HikeModel>();
+        hikeDetailsJSONMap.put("details",hikeDetails);
+        return new ModelAndView("jsonView", hikeDetailsJSONMap);
     }
 
     @Override
@@ -58,5 +63,13 @@ public class HikeDetailsController extends AbstractController implements Control
 
     public void setHikeName(String hikeName) {
         this.hikeName = hikeName;
+    }
+    
+    public String getDataSourceFlavor() {
+        return dataSourceFlavor;
+    }
+
+    public void setDataSourceFlavor(String dataSourceFlavor) {
+        this.dataSourceFlavor = dataSourceFlavor;
     }
 }

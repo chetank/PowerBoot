@@ -33,7 +33,9 @@
     
     <!-- Controllers -->
     <bean id="hikeListController" class="com.powerboot.controller.HikeListController"></bean>
-    <bean id="hikeDetailsController" class="com.powerboot.controller.HikeDetailsController"></bean>
+    <bean id="hikeDetailsController" class="com.powerboot.controller.HikeDetailsController">
+        <property name="dataSourceFlavor" value="BOTH"/>
+    </bean>
 
     <bean id="hikeFormController" class="com.powerboot.controller.HikeFormController">
         <property name="formView" value="hikeform"></property>

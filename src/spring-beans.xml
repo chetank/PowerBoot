@@ -5,10 +5,14 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="hikesDAO" class="com.powerboot.dao.HikesListDao" scope="singleton" init-method="init">
-        <property name="gFusionFacade" ref="gFusionFacade" />
+    <bean id="applicationContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        
     </bean>
 
+    <bean id="hikesDAO" class="com.powerboot.dao.HikesDaoImpl" scope="singleton" init-method="init">
+        <property name="gFusionFacade" ref="gFusionFacade" />
+    </bean>
+    
     <bean id="gFusionFacade" class="com.powerboot.facade.GFusionFacade" init-method="init">
         <property name="googleService" ref="googleService" />
         <property name="email" value="hikemaadi@gmail.com" />
@@ -21,6 +25,7 @@
         <constructor-arg value="fusiontables.ApiExample" />
     </bean>
     
+    <!--
     <bean id="dataSource" destroy-method="close"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -28,6 +33,6 @@
         <property name="username" value="root" />
         <property name="password" value="test123" />
     </bean>
-
+    -->
 
 </beans>

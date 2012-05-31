@@ -222,11 +222,11 @@ function trimHikeName(hikeName) {
  * This method retrieves the hike details when user clicks on a hike
  */ 
 function hikeDetailsAjax(hikeId) {
-    var hikeNameTrimmed = trimHikeName(hikes[hikeId].name);
+    var hikeName = hikes[hikeId].name;
     if(hikes[hikeId].features == null) {
-        $.getJSON("hikeDetails.htm?hikeName="+hikeNameTrimmed,
+        $.getJSON("hikeDetails.htm?hikeName="+hikeName,
             function(data){
-              $.each(data.details, function(i,item){
+              $.each(data.details.hikeFeatures, function(i,item){
                   var images = [];
                   var trailPoints = [];
                   var point = '';
@@ -263,7 +263,6 @@ function hikeDetailsAjax(hikeId) {
                   features.push(feature);
                   hikes[hikeId].setFeatures(features);
               });
-              displayHikeFeaturesOnSideBar(features,hikeId);
             });
     }
     displayHikeFeaturesOnSideBar(features,hikeId);

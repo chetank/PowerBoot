@@ -41,7 +41,54 @@ function hikeFeature() {
      //END OF SETTER METHODS
 }
 
+
+function displayBasicHikeInfo(hikeId) {
+    var hikeName = hikes[hikeId].name;
+    $.getJSON("hikeDetails.htm?hikeName="+hikeName,
+        function(data){
+            $("<span/>", {
+                text: "Elevation Gain: ",
+            }).appendTo("#basicInfo");
+            $("<span/>", {
+                text: "None",
+                class: "value",
+            }).appendTo("#basicInfo");
+            
+            $("<br/>").appendTo("#basicInfo");
+            
+            $("<span/>", {
+                text: "Duration: ",
+            }).appendTo("#basicInfo");
+            $("<span/>", {
+                text: "None",
+                class: "value",
+            }).appendTo("#basicInfo");
+            
+            $("<br/>").appendTo("#basicInfo");
+            
+            $("<span/>", {
+                text: "Summit Height: ",
+            }).appendTo("#basicInfo");
+            $("<span/>", {
+                text: "None",
+                class: "value",
+            }).appendTo("#basicInfo");
+            
+            $("<br/>").appendTo("#basicInfo");
+    });
+}
+
+
 function displayHikeFeaturesOnSideBar(features,hikeId) {
+    $("#hikeDetails").show();
+    
+    //first reset the sidebar
+    $("#basicInfo").text("");
+    $("#Features").text("");
+    
+    displayBasicHikeInfo(hikeId);
+    //displaySocialInfo(hikeId);
+    
     for (var i = 0; i < features.length; i++) {
         var feature = features[i];
         
@@ -131,7 +178,7 @@ function initialize() {
 // define some global variables
 
 function displayElevationProfile(hikeId) {
-	elevationService.getElevationAlongPath({
+    elevationService.getElevationAlongPath({
         path: hikes[hikeId].trail,
         samples: 256
       }, plotElevation);
@@ -140,22 +187,21 @@ function displayElevationProfile(hikeId) {
 //Takes an array of ElevationResult objects, draws the path on the map
 //and plots the elevation profile on a GViz ColumnChart
 function plotElevation(results) {
-	elevations = results;
-	var data = new google.visualization.DataTable();
-	data.addColumn('string', 'Sample');
-	data.addColumn('number', 'Elevation');
-	for (var i = 0; i < results.length; i++) {
-		data.addRow(['', elevations[i].elevation]);
-	}
-	
-//	$('#chart_div').style.display = 'block';
-	chart.draw(data, {
-		width: 250,
-		height: 200,
-		legend: 'none',
-		titleY: 'Elevation (m)',
-		focusBorderColor: '#00ff00'
-	});
+    elevations = results;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Sample');
+    data.addColumn('number', 'Elevation');
+    for (var i = 0; i < results.length; i++) {
+        data.addRow(['', elevations[i].elevation]);
+    }
+    
+    chart.draw(data, {
+        width: 250,
+        height: 200,
+        legend: 'none',
+        titleY: 'Elevation (m)',
+        focusBorderColor: '#00ff00'
+    });
 }
 /*
  * This class represents all the attributes for a hike.

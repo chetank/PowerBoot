@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import com.powerboot.dao.HikesListDao;
-import com.powerboot.dao.HikesListIDao;
-import com.powerboot.model.HikeListModel;
+import com.powerboot.dao.HikesDaoImpl;
+import com.powerboot.dao.HikesDao;
+import com.powerboot.model.HikeModel;
 
 public class GetHikesListFromDB {
 
