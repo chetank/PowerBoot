@@ -10,8 +10,6 @@ import com.powerboot.model.HikeFeature;
 import com.powerboot.model.HikeModel;
 
 public interface HikesDao {
-	
-//	void create(String name, String lat, String lon);
 
 //	List<HikesListModel> select(String name, String lat, String lon);
 
