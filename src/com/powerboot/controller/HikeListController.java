@@ -5,15 +5,12 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.powerboot.dao.HikesDaoImpl;
 import com.powerboot.dao.HikesDao;
+import com.powerboot.dao.HikesDaoImpl;
 import com.powerboot.model.HikeModel;
 
 public class HikeListController extends BaseController implements Controller {
@@ -27,12 +24,10 @@ public class HikeListController extends BaseController implements Controller {
         HikesDao dao = (HikesDaoImpl) context.getBean("hikesDAO");
         List<HikeModel> hikeList = dao.selectAll();
         
+        
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("hikeList", hikeList);
         
-        //close the db connection
-        //DataSource ds = (DataSource) context.getBean("dataSource");
-        //ds.getConnection().close();
         
         return modelAndView;
     }

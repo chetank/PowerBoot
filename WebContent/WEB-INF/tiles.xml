@@ -6,18 +6,18 @@
 
 <tiles-definitions>
 
-	<definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
-		<put-attribute name="title" value="Template" />
-		<put-attribute name="logo" value="/WEB-INF/jsp/logo.jsp" />
-		<put-attribute name="addressBar" value="/WEB-INF/jsp/addressBar.jsp" />
-		<put-attribute name="attribution" value="/WEB-INF/jsp/attribution.jsp" />
-		<put-attribute name="sidebar" value="/WEB-INF/tiles/menu.jsp" />
-		<put-attribute name="main" value="/WEB-INF/jsp/welcome.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-	</definition>
+    <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
+        <put-attribute name="title" value="Template" />
+        <put-attribute name="logo" value="/WEB-INF/jsp/logo.jsp" />
+        <put-attribute name="addressBar" value="/WEB-INF/jsp/addressBar.jsp" />
+        <put-attribute name="attribution" value="/WEB-INF/jsp/attribution.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/tiles/menu.jsp" />
+        <put-attribute name="main" value="/WEB-INF/jsp/welcome.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
 
-	<definition name="home" extends="baseLayout">
-        <put-attribute name="title" value="Welcome" />
+    <definition name="home" extends="baseLayout">
+        <put-attribute name="title" value="HikeMaadi Welcomes You" />
         <put-attribute name="sidebar" value="/WEB-INF/jsp/sideBar.jsp" />
         <put-attribute name="main" value="/WEB-INF/jsp/hikesOnMap.jsp" />
     </definition>

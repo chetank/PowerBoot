@@ -26,6 +26,7 @@ import de.micromata.opengis.kml.v_2_2_0.Placemark;
 import de.micromata.opengis.kml.v_2_2_0.Point;
 import de.micromata.opengis.kml.v_2_2_0.Style;
 import de.micromata.opengis.kml.v_2_2_0.StyleSelector;
+import de.micromata.opengis.kml.v_2_2_0.Folder;
 
 public class KmlParser {
 
@@ -62,7 +63,49 @@ public class KmlParser {
         List<HikeFeature> hikeFeatures = new ArrayList<HikeFeature>();
 
         for(Feature feature : document.getFeature()) {
-            if(feature instanceof Placemark) {
+            if(feature instanceof Folder) {
+                Folder folder = (Folder) feature;
+                List<Feature> subfeatures = folder.getFeature();
+                for(Feature subfeature : subfeatures) {
+                    if (subfeature instanceof Folder) {
+                        Folder subFolder = (Folder) subfeature;
+                        List<Feature> subsubfeatures = subFolder.getFeature();
+                        for (Feature subsubfeature : subsubfeatures) {
+                            if (subsubfeature instanceof Folder) {
+                                Folder subsubFolder = (Folder) subsubfeature;
+                                List<Feature> subsubsubfeatures = subsubFolder.getFeature();
+                                for (Feature subsubsubfeature : subsubsubfeatures) {
+                                    if(subsubsubfeature instanceof Placemark) {
+                                        HikeFeature hikeFeature = new HikeFeature();
+                                        hikeFeature.setName(subsubsubfeature.getName());
+                                        hikeFeature.setMarker(subsubsubfeature.getStyleUrl());
+                                        Placemark placemark = (Placemark) subsubsubfeature;
+                                        hikeFeature.setStyle(markerMap.get(placemark.getStyleUrl()));
+                                        String description = placemark.getDescription();
+                                        if((description != null) && (description.length() > 0)) {
+                                            hikeFeature.setDescription(description);
+                                        }
+                                        if(description != null && description.contains("<img src")) {
+                                            List<String> links = pullLinks(description);
+                                            hikeFeature.setImages(links);
+                                        }
+                                        if (placemark.getGeometry() instanceof Point) {
+                                            Point point = (Point) placemark.getGeometry();
+                                            hikeFeature.setTrail(point.getCoordinates());
+                                        } else if (placemark.getGeometry() instanceof LineString) {
+                                            LineString lineString = (LineString) placemark.getGeometry();
+                                            hikeFeature.setTrail(lineString.getCoordinates());
+                                        }
+                                        hikeFeatures.add(hikeFeature);
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                
+            } else if(feature instanceof Placemark) {
                 HikeFeature hikeFeature = new HikeFeature();
                 hikeFeature.setName(feature.getName());
                 hikeFeature.setMarker(feature.getStyleUrl());
@@ -89,7 +132,7 @@ public class KmlParser {
         return hikeFeatures;
     }
     
-	private static List<String> pullLinks(String text) {
+    private static List<String> pullLinks(String text) {
         List<String> links = new ArrayList<String>();
         String regex = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]";
         Pattern p = Pattern.compile(regex);

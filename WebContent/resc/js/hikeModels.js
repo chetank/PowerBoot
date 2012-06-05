@@ -121,11 +121,14 @@ function displayHikeFeaturesOnSideBar(features,hikeId) {
         // Display hike images
         if(feature.images.length > 0) {
             for (var k = 0 ; k < feature.images.length ; k++) {
-                var imageItem = $("<li/>");
+                var imageItem = $("<li/>").attr({
+                    style: "margin-left: 2px; margin-right: 2px;"
+                });
                 var imageTag = $("<img/>").attr({
                     src: feature.images[k],
                     width: 150,
-                    height: 150
+                    height: 150,
+                    style: "border: 1px solid;"
                 });
                 imageTag.appendTo(imageItem);
                 imageItem.appendTo("#featureImages");
@@ -133,7 +136,7 @@ function displayHikeFeaturesOnSideBar(features,hikeId) {
             $(".imageGallery").jCarouselLite({
                 btnNext: ".next",
                 btnPrev: ".prev",
-                visible: 1,
+                visible: 2,
                 start: 0,
                 speed: 300,
                 circular: false

@@ -8,7 +8,7 @@ body {
     font-size: 13px;
     font-weight: normal;
     line-height: 1em;
-    width: 97%;
+    width: 80%;
     margin: 0 auto;
     vertical-align: baseline;
     padding-left: 10px;
@@ -19,10 +19,11 @@ body {
 body a {
     text-decoration: none;
     color: green;
+    cursor: pointer;
 }
 
 #main {
-    width: 70%;
+    width: 60%;
     float: left;
     height: 85%;
 }
@@ -31,8 +32,12 @@ body a {
     float: right;
     line-height: 2em;
     text-align: left;
-    width: 30%;
+    width: 40%;
     font-size: 8pt;
+}
+
+#sidebar a {
+    color: DarkSlateGrey;
 }
 
 #map,#map3d {
@@ -45,11 +50,12 @@ body a {
 }
 
 #attribution {
-    float: right;	
+    float: right;
+    margin-top: -13px;
 }
 
 #addressBar {
-    width: 70%;
+    width: 60%;
     float: left;
 }
 
@@ -165,29 +171,84 @@ div.quickInfo {
 }
 
 #hikeDetails {
-	padding-left: 10px;
+	padding: 8px;
 	margin-left: 5px;
 	border: 1px solid;
 }
 
+#images {
+    background: url("../images/gallery-background.jpg") repeat-x scroll 0 0 transparent;
+    border-bottom: 1px solid #CCC5BE;
+    height: 170px;
+    position: relative;
+    margin: 0px auto;
+}
 
+.gallery-wrapper {
+    padding-top: 10px;
+    padding-left: 31px;
+}
 
-.etabs { margin: 0; padding: 0; }
-.tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 4px 4px 0 0; }
+.prev, .next {
+    background: url("../images/arrows.jpg") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 20px;
+    position: absolute;
+    top: 80px;
+    width: 10px;
+    maring-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+h3 {
+    background-color: #EBEAE5;
+    border-bottom: 1px solid #CDC8C8;
+    border-top: 1px solid #CDC8C8;
+    overflow: hidden;
+    padding-left: 3px;
+    position: relative;
+    font-weight: normal; 
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.tab-container {
+	margin-top: 5px;
+}
+
+.next {
+    background-position: -32px 0;
+    right: 15px;
+}
+
+.prev {
+    background-position: 0 0;
+    left: 15px;
+}
+
+.etabs { 
+    margin: 0;
+    padding: 0;
+    background-color: #EBEAE5;
+}
+
+.tab { 
+    display: inline-block;
+    zoom:1;
+    *display:inline; 
+    background-color: #EBEAE5;
+    border: solid 1px #999;
+    border-bottom: none;
+}
+
 .tab a { font-size: 12px; line-height: 1.5em; display: block; padding: 0 7px; outline: none; }
 .tab a:hover { text-decoration: underline; }
 .tab.active { background: #fff; position: relative; top: 1px; border-color: #666; }
 .tab a.active { font-weight: bold; }
-.tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
+.tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; }
 
 .h2 { font-size: 14px; display: block; outline: none; font-weight: bold; }
-
-h3 {font-weight: normal; font-size: 12px;}
-
-#images {
-	width: 50%;
-	margin: 0px auto; 
-}
 
 #chart_div {
 	width: 50%;
@@ -204,4 +265,112 @@ h3 {font-weight: normal; font-size: 12px;}
 
 #basicInfo span.value {
     line-height: 1.5em;
+}
+
+/*
+STYLES FOR LOGIN BOX
+*/
+
+.login_btn {
+    text-decoration:none;
+    text-shadow:1px 1px 0 #000;
+    -moz-text-shadow:1px 1px 0 #000;
+    -webkit-text-shadow:1px 1px 0 #000;
+    color:#fff;
+    font-weight:bold;
+    font-size:13px;
+    margin-top:13px;
+    background:#3d3d3d;
+    float:right;
+    height:32px;
+}
+.login_btn:hover {
+    background:#656565;
+}
+.login_btn span {
+    color:#fff;
+    float:left;
+    padding:0 10px 0 10px;
+    text-align:center;
+    margin-top: 8px;
+}
+.triangle {
+    float:left;
+    width:0px;
+    height:0px;
+    margin:14px 9px 0 0;
+    border-left:5px solid transparent;
+    /* left arrow slant */
+    border-right:5px solid transparent;
+    /* right arrow slant */
+    border-top:5px solid #fff;
+    /* bottom,add background color here */
+    font-size:0px;
+    line-height:0px;
+}
+#content {
+    height:733px;
+    background:url('img/bg.jpg') center;
+}
+#login_box {
+    display:none;
+    width:200px;
+    margin:2px 0 0;
+}
+#tab {
+    background:#Gainsboro;
+    float:left;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+#login_box_content {
+    background:#fff;
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    float:left;
+    width:200px;
+    background-color:Gainsboro;
+}
+#login_form {
+    margin:9px 0 0 9px;
+}
+#login_form input[type=text],#login_form input[type=password] {
+    border:1px solid #d8d8d8;
+    border-radius:3px;
+    font:italic 12px Georgia,times,sans-serif;
+    height:37px;
+    width:175px;
+    margin-top:10px;
+    padding-left:10px;
+}
+#login_form input[type=submit] {
+    border:none;
+    background:#19677e;
+    color:#fff;
+    float:right;
+    margin:14px 9px 9px 0;
+    width:56px;
+    height: 22px;
+}
+
+#fblogin_btn {
+    margin-top: 14px;
+}
+
+#user-greeting {
+	float: left;
+	font-size: 11px;
+}
+
+#user-picture {
+	width: 36%;
+	float: right;
+	margin-right: 5px;
+}
+
+#user-name {
+	float: left;
+	margin-top: 33px;
 }

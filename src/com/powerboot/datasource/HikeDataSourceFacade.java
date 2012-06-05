@@ -55,7 +55,7 @@ public class HikeDataSourceFacade {
             dao = (HikesDaoImpl) appContext.getBean("hikesDAO");
             hikeDetails = dao.getDetails(hikeName);
 
-            if(hikeDetails.getHikeFeatures() == null) {
+            //if(hikeDetails.getHikeFeatures() == null) {
 
                 hikeNameTrimmed = hikeName.replace(" ", "");
                 filePath = servletContext.getRealPath(dirLocation + hikeNameTrimmed + ".xml");
@@ -65,7 +65,7 @@ public class HikeDataSourceFacade {
 
                 // add hike features to hike-cache object
                 dao.setHikeFeatures(hikeName, hikeFeatures);
-            }
+            //}
         }
 
         return hikeDetails;
