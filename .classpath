@@ -53,5 +53,57 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/JavaAPIforKml.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-analytics-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-analytics-meta-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-appsforyourdomain-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-appsforyourdomain-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-base-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-blogger-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-blogger-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-books-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-books-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-calendar-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-calendar-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-client-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-codesearch-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-codesearch-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-contacts-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-contacts-meta-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-docs-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-docs-meta-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-finance-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-finance-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-gtt-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-gtt-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-health-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-health-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-maps-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-maps-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-media-1.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-photos-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-photos-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-projecthosting-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-projecthosting-meta-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-sidewiki-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-sidewiki-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-sites-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-sites-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-spreadsheet-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-spreadsheet-meta-3.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-webmastertools-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-webmastertools-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-youtube-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gdata-youtube-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/opencsv-1.7.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/facebook-java-api-3.0.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/facebook-java-api-annotation-processor-3.0.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/facebook-java-api-schema-3.0.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-api-2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-impl-2.1.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/runtime-0.4.1.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax-api-1.0-2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
