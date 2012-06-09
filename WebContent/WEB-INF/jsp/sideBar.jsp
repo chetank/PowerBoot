@@ -5,6 +5,7 @@
     type="text/javascript"></script>
 <script src="<c:url value="/resc/js/jcarousellite_1.0.1.min.js"/>"
     type="text/javascript"></script>
+    
 <script>
 $(document).ready(function() 
         { 
@@ -21,15 +22,17 @@ $(document).ready(function()
         E-mail | Print
     </div>
     <div id="images">
-        <div class="gallery-wrapper">
-            <div class="imageGallery">
-                <ul id="featureImages"></ul>
+        <center>
+            <div class="gallery-wrapper">
+                <div class="imageGallery">
+                    <ul id="featureImages"></ul>
+                </div>
             </div>
-        </div>
-        <div class="photo-slider">
-            <button class="prev"></button>
-            <button class="next"></button>
-        </div>
+            <div class="photo-slider">
+                <button class="prev"></button>
+                <button class="next"></button>
+            </div>
+        </center>
     </div>
     <div id="tab-container" class="tab-container">
         <ul class='etabs'>

@@ -78,6 +78,7 @@ function displayBasicHikeInfo(hikeId) {
     });
 }
 
+var numberOfVisibleImages = 3;
 
 function displayHikeFeaturesOnSideBar(features,hikeId) {
     $("#hikeDetails").show();
@@ -93,12 +94,14 @@ function displayHikeFeaturesOnSideBar(features,hikeId) {
         var feature = features[i];
         
         //Display features on Feature Tab
-        $("<a/>", {
-              text: feature.name,
-              href: '#',
-              onclick: 'showFeatureOnMap(' + i + ')'
-            }).appendTo("#Features");
-        $("<br/>").appendTo("#Features");
+        if(feature.name != "" && feature.name != null && feature.name != undefined) { 
+            $("<a/>", {
+                  text: feature.name,
+                  href: '#',
+                  onclick: 'showFeatureOnMap(' + i + ')'
+                }).appendTo("#Features");
+            $("<br/>").appendTo("#Features");
+        }
 
         //Display non-trail features
         if(feature.trail == null) {
@@ -119,24 +122,54 @@ function displayHikeFeaturesOnSideBar(features,hikeId) {
             hikePath.setMap(map);
         }
         // Display hike images
+        var imageGalleryLength = $(".gallery-wrapper").width();
+        $("#images").height(imageGalleryLength/(numberOfVisibleImages-1));
+        $("imageGallery").width(2*(imageGalleryLength/(numberOfVisibleImages-0.5)+10));
         if(feature.images.length > 0) {
             for (var k = 0 ; k < feature.images.length ; k++) {
                 var imageItem = $("<li/>").attr({
-                    style: "margin-left: 2px; margin-right: 2px;"
+                    style: "margin-left: 2px; margin-right: 2px; margin-top: 7px"
                 });
                 var imageTag = $("<img/>").attr({
                     src: feature.images[k],
-                    width: 150,
-                    height: 150,
+                    width: imageGalleryLength/(numberOfVisibleImages-0.5),
+                    height: imageGalleryLength/(numberOfVisibleImages-0.5),
                     style: "border: 1px solid;"
                 });
+                
+                imageTag.on('click', function() {
+                    $el = $(this);
+                    
+                    var largeImage = $("<img />", {
+                    
+                        "src": $el.attr("src"),
+                        "class": "larger"
+                    
+                    }).load(function() {
+                        $(this)
+                            .appendTo("body")
+                            .width("500px")
+                            .position({
+                                "of": $el.find("img"),
+                                "my": "center center",
+                                "at": "center center",
+                                "collision": "fit"
+                             })
+                    });
+                    
+                    largeImage.click(function() {
+                    	$(this).remove();
+                    });
+                });
+                
                 imageTag.appendTo(imageItem);
                 imageItem.appendTo("#featureImages");
             }
+            
             $(".imageGallery").jCarouselLite({
                 btnNext: ".next",
                 btnPrev: ".prev",
-                visible: 2,
+                visible: numberOfVisibleImages - 1,
                 start: 0,
                 speed: 300,
                 circular: false
@@ -147,6 +180,17 @@ function displayHikeFeaturesOnSideBar(features,hikeId) {
     $("#hikeId").val(hikeId);
     displayElevationProfile(hikeId);
 }
+
+$(window).bind("resize", function(){//Adjusts image when browser resized  
+	var imageGalleryLength = $(".gallery-wrapper").width();
+	$(".imageGallery img").width(imageGalleryLength/(numberOfVisibleImages-0.5));
+	$(".imageGallery img").height(imageGalleryLength/(numberOfVisibleImages-0.5));
+	$("#featureImages li").width(imageGalleryLength/(numberOfVisibleImages-0.5));
+	$("#featureImages li").height(imageGalleryLength/(numberOfVisibleImages-0.5));
+    $("imageGallery").width(2*(imageGalleryLength/(numberOfVisibleImages-0.5)+10));
+	$("#images").height(imageGalleryLength/(numberOfVisibleImages-1));
+    $("imageGallery").width(2*(imageGalleryLength/(numberOfVisibleImages-0.5))+10);
+	 });
 
 /*
  * This method is used to display an elevation profile of the hike trail

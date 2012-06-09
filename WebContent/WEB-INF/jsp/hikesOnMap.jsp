@@ -31,6 +31,7 @@
 <!-- Import hike Models in JS -->
 <script type="text/javascript"
     src="<c:url value="/resc/js/hikeModels.js"/>"></script>
+    
 
 <script>
 $(document).ready(function() 

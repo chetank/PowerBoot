@@ -186,7 +186,6 @@ div.quickInfo {
 
 .gallery-wrapper {
     padding-top: 10px;
-    padding-left: 31px;
 }
 
 .prev, .next {
@@ -373,4 +372,12 @@ STYLES FOR LOGIN BOX
 #user-name {
 	float: left;
 	margin-top: 33px;
+}
+
+.larger {
+	position: absolute;
+	top: 27%;
+	left: 32%;
+	z-index: 1000;
+	border: 2px solid;
 }
